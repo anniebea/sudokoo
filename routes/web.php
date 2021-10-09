@@ -27,9 +27,6 @@ Auth::routes();
 //Redirects 'sudokoo/' to '/sudokoo' ('sudokoo' is the vhost used during development)
 Route::redirect('/','sudokoo');
 
-//Redorects user to main Sudoku list post-login
-Route::redirect('/home', 'sudokoo');
-
 //Sudoku routes
 Route::resource('sudokoo','App\Http\Controllers\SudokuController');
 Route::get('/sudokoo/sudoku/list', 'App\Http\Controllers\SudokuController@index')->name('sudoku.list');
