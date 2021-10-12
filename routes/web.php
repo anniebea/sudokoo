@@ -29,7 +29,7 @@ Route::redirect('/','sudokoo');
 
 //Sudoku routes
 Route::resource('sudokoo','App\Http\Controllers\SudokuController');
-Route::get('/sudokoo/sudoku/list', 'App\Http\Controllers\SudokuController@index')->name('sudoku.list');
+Route::get('/sudokoo/list/sudoku', 'App\Http\Controllers\SudokuController@index')->name('sudoku.list');
 Route::get('/sudokoo/sudoku/{id}','App\Http\Controllers\SudokuController@show')->name('sudoku.show');
 Route::get('/sudokoo/create/sudoku','App\Http\Controllers\SudokuController@create')->name('sudoku.create')->middleware('auth');
 Route::post('/sudokoo/create/sudoku', 'App\Http\Controllers\SudokuController@store')->middleware('auth');
@@ -40,7 +40,7 @@ Route::post('/sudokoo/search/sudoku', 'App\Http\Controllers\SudokuController@pos
 
 //User routes
 Route::resource('users','App\Http\Controllers\UserController');
-Route::get('/sudokoo/users', 'App\Http\Controllers\UserController@index')->name('user.list')->middleware('auth');
+Route::get('/sudokoo/list/user', 'App\Http\Controllers\UserController@index')->name('user.list')->middleware('auth');
 Route::get('/sudokoo/user/{id}','App\Http\Controllers\UserController@show')->name('user.show')->middleware('auth');
 Route::get('/sudokoo/create/user', 'App\Http\Controllers\UserController@create')->name('user.create');
 Route::post('/sudokoo/create/user','App\Http\Controllers\UserController@store');

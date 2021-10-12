@@ -13,7 +13,7 @@
                     <div class="card-body">
 {{--                        single sudoku card--}}
                         <ul class="list-group">
-                            <a class="list-group-item list-group-item-primary list-group-item-action">Sudoku Nr.1</a>
+                            <a class="list-group-item list-group-item-primary list-group-item-action" href="{{ url('/sudokoo/sudoku') }}">Sudoku Nr.1</a>
                             <li class="list-group-item">
                                 <div>
                                     <p>Author: admin</p>

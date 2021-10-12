@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'date_of_birth',
         'password',
+        'role_id'
     ];
 
     /**
@@ -42,4 +43,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    //FK relationship
+    public function Role() {
+        return $this->hasOne('App\Role');
+    }
 }
