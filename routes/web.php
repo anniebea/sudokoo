@@ -48,3 +48,5 @@ Route::get('/sudokoo/edit/user/{id}','App\Http\Controllers\UserController@edit')
 Route::post('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@update')->middleware('auth');
 Route::get('/sudokoo/destroy/user/{id}', 'App\Http\Controllers\UserController@destroy')->name('user.destroy')->middleware('auth');
 Route::post('/sudokoo/search/user', 'App\Http\Controllers\UserController@postSearch')->name('user.search')->middleware('auth');
+
+Route::get('/sudokoo/user','App\/Http\Controllers\UserController@showProfile')->name('profile.show')->middleware('auth');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon; //Carbon is used to validate user's age
@@ -71,7 +72,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'date_of_birth' => $data['dob'],
             'password' => Hash::make($data['password']),
-            'role' => 0
+            'role_id' => DB::table('Roles')->where('name','Pamatlietotajs')->value('id'),
         ]);
     }
 }
