@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('profile');
     }
 
     /**
@@ -47,7 +47,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return redirect()->route('profile.show');
+        $user = DB::table('users')->where('id', $id)->first();
+        return view('profile', ['user' => $user]);
     }
 
     /**
@@ -85,16 +86,15 @@ class UserController extends Controller
     }
 
     /**
-     * View a user's profile.
+     * Display the Active user's profile.
      *
+     * @return \Illuminate\Http\Response
      */
     public function showProfile()
     {
         $login_id = Auth::id();
-        $user = DB::table('users')->where('user_id', $login_id)->first();
-        $id = $user->id;
-        echo('hello');
+        $user = DB::table('users')->where('id', $login_id)->first();
 
-        return view('profile', array('user' => $id));
+        return view('profile', ['user' => $user]);
     }
 }

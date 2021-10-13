@@ -24,11 +24,11 @@ Auth::routes();
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-//Redirects 'sudokoo/' to '/sudokoo' ('sudokoo' is the vhost used during development)
-Route::redirect('/','sudokoo');
+//Redirects 'sudokoo/' to '/sudokoo/list/sudoku' ('sudokoo' is the vhost used during development)
+Route::redirect('/','sudokoo/list/sudoku');
 
 //Sudoku routes
-Route::resource('sudokoo','App\Http\Controllers\SudokuController');
+Route::resource('sudokoo','App\Http\Controllers\SudokuController')->except('index','show','create','store','edit','update','destroy');
 Route::get('/sudokoo/list/sudoku', 'App\Http\Controllers\SudokuController@index')->name('sudoku.list');
 Route::get('/sudokoo/sudoku/{id}','App\Http\Controllers\SudokuController@show')->name('sudoku.show');
 Route::get('/sudokoo/create/sudoku','App\Http\Controllers\SudokuController@create')->name('sudoku.create')->middleware('auth');
@@ -49,4 +49,4 @@ Route::post('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@updat
 Route::get('/sudokoo/destroy/user/{id}', 'App\Http\Controllers\UserController@destroy')->name('user.destroy')->middleware('auth');
 Route::post('/sudokoo/search/user', 'App\Http\Controllers\UserController@postSearch')->name('user.search')->middleware('auth');
 
-Route::get('/sudokoo/user','App\/Http\Controllers\UserController@showProfile')->name('profile.show')->middleware('auth');
+Route::get('/sudokoo/user','App\Http\Controllers\UserController@showProfile')->name('profile.show')->middleware('auth');
