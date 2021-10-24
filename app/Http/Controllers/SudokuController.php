@@ -22,7 +22,7 @@ class SudokuController extends Controller
      */
     public function index()
     {
-        return view('sudokuList');
+        return view('sudoku.sudokuList');
     }
 
     /**
@@ -32,7 +32,7 @@ class SudokuController extends Controller
      */
     public function create()
     {
-        return view('sudoku');
+        return view('sudoku.sudoku');
     }
 
     /**

@@ -42,11 +42,9 @@ Route::post('/sudokoo/search/sudoku', 'App\Http\Controllers\SudokuController@pos
 Route::resource('users','App\Http\Controllers\UserController');
 Route::get('/sudokoo/list/user', 'App\Http\Controllers\UserController@index')->name('user.list')->middleware('auth');
 Route::get('/sudokoo/user/{id}','App\Http\Controllers\UserController@show')->name('user.show')->middleware('auth');
-Route::get('/sudokoo/create/user', 'App\Http\Controllers\UserController@create')->name('user.create');
-Route::post('/sudokoo/create/user','App\Http\Controllers\UserController@store');
+//Route::get('/sudokoo/create/user', 'App\Http\Controllers\UserController@create')->name('user.create');
+Route::post('/sudokoo/create/user','App\Http\Controllers\UserController@store')->middleware('auth');
 Route::get('/sudokoo/edit/user/{id}','App\Http\Controllers\UserController@edit')->name('user.edit')->middleware('auth');
-Route::post('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@update')->middleware('auth');
+Route::post('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@update')->name('user.update')->middleware('auth');
 Route::get('/sudokoo/destroy/user/{id}', 'App\Http\Controllers\UserController@destroy')->name('user.destroy')->middleware('auth');
 Route::post('/sudokoo/search/user', 'App\Http\Controllers\UserController@postSearch')->name('user.search')->middleware('auth');
-
-Route::get('/sudokoo/user','App\Http\Controllers\UserController@showProfile')->name('profile.show')->middleware('auth');

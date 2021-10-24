@@ -46,7 +46,7 @@ class User extends Authenticatable
 
 
     //FK relationship
-    public function Role() {
-        return $this->hasOne('App\Role');
+    public function role() {
+        return $this->belongsTo('App\Models\Role');
     }
 }

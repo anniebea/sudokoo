@@ -16,7 +16,7 @@ class Role extends Model
     ];
 
     //FK relationship
-    public function User() {
-        return $this->belongsTo('App\User');
+    public function user() {
+        return $this->hasMany('App\Models\User');
     }
 }
