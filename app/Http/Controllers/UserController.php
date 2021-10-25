@@ -82,25 +82,14 @@ class UserController extends Controller
         $user = $this->getUser($id);
         $username = $user->name;
 
-        if($request->name != $username) //if no changes have been made to the username, then there is no need to validate it
-        {
-            $request->validate([
-                'name' => ['required', 'string', 'max:255', 'unique:users'],
-                'date_of_birth' => ['required', 'date', 'before_or_equal:' . Carbon::now()->subYears(16)->toDateString()],
-            ]);
-        }
-        else
-        {
-            $request->validate([
-                'date_of_birth' => ['required', 'date', 'before_or_equal:' . Carbon::now()->subYears(16)->toDateString()],
-            ]);
-        }
+        $request->validate([
+            'name' => ['required', 'string', 'max:255', 'unique:users'],
+        ]);
 
         DB::table('users')
             ->where('id', $id)
             ->update([
                 'name' => $request->name,
-                'date_of_birth' => $request->dob,
             ]);
 
         return redirect()->route('user.show', ['id' => $id]);
