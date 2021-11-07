@@ -1,0 +1,6 @@
+.popup {
+    display: block;
+    margin: auto;
+    position: center;
+    z-index: 9;
+}

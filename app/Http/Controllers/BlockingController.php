@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Blocking;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+class BlockingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('role')->get();
-
-        return view('profiles.profileList', ['users' => $users]);
+        //
     }
 
     /**
@@ -26,9 +24,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $user = DB::table('users')
+            ->where('id','=', $id)
+            ->first();
+
+        return view('admin.blockForm', ['user' => $user]);
     }
 
     /**
@@ -39,7 +41,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'date_to' => ['nullable', 'date', 'after_or_equal:' . Carbon::now()->toDateString()],
+            'user_id' => ['required', 'exists:users,id'],
+        ]);
+
+        DB::table('admin')
+            ->insert([
+                'date_to' => $request->date_to,
+                'date_from' => Carbon::now()->toDateString(),
+                'user_id' => $request->user_id,
+                'created_at' => Carbon::now()->toDateTimeString(),
+            ]);
+
+        DB::table('users')
+            ->where('id','=', $request->user_id)
+            ->update([
+            'is_blocked' => '1'
+        ]);
+
+        return redirect()->route('user.list');
     }
 
     /**
@@ -50,9 +71,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = $this->getUser($id);
-
-        return view('profiles.profile', ['user' => $user, 'login' => Auth::id()]);
+        //
     }
 
     /**
@@ -63,8 +82,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = $this->getUser($id);
-        return view('profiles.profileEdit', ['user' => $user]);
+        //
     }
 
     /**
@@ -76,17 +94,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:users'],
-        ]);
-
-        DB::table('users')
-            ->where('id', $id)
-            ->update([
-                'name' => $request->name,
-            ]);
-
-        return redirect()->route('user.show', ['id' => $id]);
+        //
     }
 
     /**
@@ -100,13 +108,8 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Get a specific user and their role
-    */
-    protected function getUser($id)
+    public function showBlocked()
     {
-        return User::with('role')
-            ->where('id','=',$id)
-            ->first();
+        return view('blockScreen');
     }
 }

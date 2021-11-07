@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'date_of_birth',
         'password',
-        'role_id'
+        'role_id',
+        'is_blocked'
     ];
 
     /**
@@ -48,5 +49,10 @@ class User extends Authenticatable
     //FK relationship
     public function role() {
         return $this->belongsTo('App\Models\Role');
+    }
+
+    //FK relationship
+    public function blocking() {
+        return $this->hasMany('App\Models\Blocking');
     }
 }

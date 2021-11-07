@@ -42,6 +42,14 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('Sudokoo123!'),
                 'role_id' => DB::table('Roles')->where('name','Pamatlietotajs')->value('id')
             ),
+
+            array(
+                'name' => 'Blokets',
+                'email' => 'blokets@sudokoo.lv',
+                'date_of_birth' => Carbon::create(2000,1,1),
+                'password' => bcrypt('Sudokoo123!'),
+                'role_id' => DB::table('Roles')->where('name','Pamatlietotajs')->value('id')
+            ),
         ));
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
