@@ -130,7 +130,6 @@ class UserController extends Controller
      * Update the role of a specific user.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function updateRole(Request $request)

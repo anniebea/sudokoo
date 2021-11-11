@@ -26,9 +26,12 @@
 {{--                                Profile information--}}
                                 <div class="tab-pane active" id="profileInfo" role="tabpanel" aria-labelledby="profileInfo-tab">
                                     <div class="container">
+                                        @if($login == $user->id)
                                         <a class="btn btn-primary" href="{{ route('user.edit', ['id' => $user->id]) }}">
                                             Edit profile information
                                         </a>
+                                        @endif
+
                                         <ul class="list-group">
                                             <li class="list-group-item">
                                                 <p><b>{{ __('E-mail address') }}:</b> {{ $user->email }}</p>
