@@ -25,7 +25,9 @@
                                         <li class="list-group-item">Role: {{ $user->role->name }}</li>
                                         @if($user->is_blocked == false)
                                         <li class="list-group-item btn-group">
-                                            <a class="btn btn-primary" href="#">Change role</a>
+                                            <a class="btn btn-primary" href="{{ route('role.edit', ['id' => $user->id]) }}">
+                                                Change role
+                                            </a>
                                             <a class="btn btn-danger" href="{{ route('blocking.create', ['id' => $user->id]) }}">
                                                 Block user
                                             </a>

@@ -37,7 +37,7 @@ Route::post('/sudokoo/create/sudoku', 'App\Http\Controllers\SudokuController@sto
 Route::get('/sudokoo/edit/sudoku/{id}','App\Http\Controllers\SudokuController@edit')->name('sudoku.edit')->middleware(['auth','not.blocked']);
 Route::post('/sudokoo/edit/sudoku/{id}','App\Http\Controllers\SudokuController@update')->middleware('auth');
 Route::get('/sudokoo/destroy/sudoku/{id}','App\Http\Controllers\SudokuController@destroy')->name('sudoku.destroy')->middleware(['auth','not.blocked']);
-Route::post('/sudokoo/search/sudoku', 'App\Http\Controllers\SudokuController@postSearch')->name('sudoku.search')->middleware(['auth','not.blocked']);
+//Route::post('/sudokoo/search/sudoku', 'App\Http\Controllers\SudokuController@postSearch')->name('sudoku.search')->middleware(['auth','not.blocked']);
 
 //User routes
 Route::resource('users','App\Http\Controllers\UserController')->except('index','show','create','store','edit','update','destroy');
@@ -48,7 +48,10 @@ Route::post('/sudokoo/create/user','App\Http\Controllers\UserController@store')-
 Route::get('/sudokoo/edit/user/{id}','App\Http\Controllers\UserController@edit')->name('user.edit')->middleware(['auth','not.blocked']);
 Route::post('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@update')->name('user.update')->middleware(['auth','not.blocked']);
 Route::get('/sudokoo/destroy/user/{id}', 'App\Http\Controllers\UserController@destroy')->name('user.destroy')->middleware(['auth','not.blocked']);
-Route::post('/sudokoo/search/user', 'App\Http\Controllers\UserController@postSearch')->name('user.search')->middleware(['auth','not.blocked']);
+//Route::post('/sudokoo/search/user', 'App\Http\Controllers\UserController@postSearch')->name('user.search')->middleware(['auth','not.blocked']);
+Route::get('/sudokoo/role/user/{id}','App\Http\Controllers\UserController@editRole')->name('role.edit')->middleware(['auth','not.blocked']);
+Route::post('sudokoo/role/user', 'App\Http\Controllers\UserController@updateRole')->name('role.update')->middleware(['auth','not.blocked']);
+
 
 //Blocking routes
 Route::resource('blocking', 'App\Http\Controllers\BlockingController')->except('create','store');
