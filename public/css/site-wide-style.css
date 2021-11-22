@@ -1,0 +1,8 @@
+#footerContent {
+    padding: 1rem;
+    color: rgba(0,0,0,0.625);
+}
+
+.btn-outline-info:hover {
+    color: white;
+}

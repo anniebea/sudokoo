@@ -55,4 +55,9 @@ class User extends Authenticatable
     public function blocking() {
         return $this->hasMany('App\Models\Blocking');
     }
+
+    //FK relationship
+    public function sudokuGrid() {
+        return $this->hasMany('App\Models\SudokuGrid');
+    }
 }

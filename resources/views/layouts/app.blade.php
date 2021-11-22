@@ -10,8 +10,15 @@
     <title>{{ config('app.name', 'Sudokoo') }}</title>
 
     <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/e83e6d7276.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-{{--    <script src="{{ asset('js/block-form-popup.js') }}" defer></script>--}}
+    <script src="{{ asset('js/misc.js') }}" defer></script>
+    <script src="{{ asset('js/cell-input.js') }}" defer></script>
+    <script src="{{ asset('js/user-input-handling.js') }}" defer></script>
+    <script src="{{ asset('js/navigation.js') }}" defer></script>
+    <script src="{{ asset('js/live-validation.js') }}" defer></script>
+    <script src="{{ asset('js/final-validation.js') }}"></script>
+    <script src="{{ asset('js/sudoku-submit-override.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,7 +26,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-{{--    <link href="{{ asset('css/block-form-style.css') }}" rel="stylesheet" type="text/css">--}}
+    <link href="{{ asset('css/site-wide-style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/game-board-style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -90,6 +98,10 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="fixed-bottom bg-white shadow-lg text-center">
+            <small id="footerContent"> {{ __('Copyright') }} &copy;2021-{{ date("Y") }} Anitra Beinare. {{ __('All Rights Reserved') }}</small>
+        </footer>
     </div>
 </body>
 </html>

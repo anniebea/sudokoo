@@ -1,0 +1,143 @@
+/*Buttons that use Font Awesome*/
+#penBtn::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f304';
+    font-weight: 600;
+}
+
+#pencilBtn::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f303';
+    font-weight: 600;
+    color: white;
+}
+
+#backspaceBtn {
+    width: 76px;
+}
+
+#backspaceBtn::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f55a';
+    font-weight: 600;
+    color: #6cb2eb;
+}
+
+#backspaceBtn:hover::before {
+    color: white;
+}
+
+#submitBtn::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f00c';
+    font-weight: 600;
+    color: white;
+}
+
+#finishBtn::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f00c';
+    font-weight: 600;
+    color: white;
+}
+
+#restart::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f01e';
+    font-weight: 600;
+    color: white;
+}
+
+/*General card styles*/
+#ruleCard, #controlCard {
+     /*width: 25%;*/
+     min-width: 50px;
+ }
+
+#gridCard {
+    /*width: 50%;*/
+    min-width: 350px;
+}
+
+#grid {
+    display: inline-block;
+}
+
+.gridCell {
+    min-width: 30px;
+    min-height: 30px;
+
+    width: 30px;
+    height: 30px;
+
+    max-width: 300px;
+    max-height: 300px;
+
+    border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.gridCell[data-selected=true] {
+    outline: 2px solid blue;
+}
+
+.gridCell[data-given]:not([data-given=''])::after { /* Applies to those gridCells, which have a 'given' attribute that has a value stored */
+    font-weight: bold;
+    font-size: 1.3em;
+    color: black;
+    content: attr(data-given);
+}
+
+.gridCell[data-has-error=true]:not([data-given=''])::after {
+    color: red;
+    content: attr(data-given);
+}
+
+.gridCell[data-pen-mark]:not([data-pen-mark=''])::after {
+    font-weight: bold;
+    font-size: 1.3em;
+    color: royalblue;
+    content: attr(data-pen-mark);
+}
+
+.gridCell[data-has-error=true]:not([data-pen-mark=''])::after {
+    color: red;
+    content: attr(data-pen-mark);
+}
+
+/*-----------
+Cell borders
+-----------*/
+#cell0000,#cell0001,#cell0002,#cell0003,#cell0004,#cell0005,#cell0006,#cell0007,#cell0008,#cell0009,#cell0010,
+#cell1000,#cell1001,#cell1002,#cell1003,#cell1004,#cell1005,#cell1006,#cell1007,#cell1008,#cell1009,#cell1010,
+#cell0100,#cell0200,#cell0300,#cell0400,#cell0500,#cell0600,#cell0700,#cell0800,#cell0900,
+#cell0110,#cell0210,#cell0310,#cell0410,#cell0510,#cell0610,#cell0710,#cell0810,#cell0910 {
+    border: 1px dotted rgba(0,0,0,0.125);
+}
+
+#cell0101,#cell0201,#cell0301,#cell0401,#cell0501,#cell0601,#cell0701,#cell0801,#cell0901,
+#cell0104,#cell0204,#cell0304,#cell0404,#cell0504,#cell0604,#cell0704,#cell0804,#cell0904,
+#cell0107,#cell0207,#cell0307,#cell0407,#cell0507,#cell0607,#cell0707,#cell0807,#cell0907,
+#cell0110,#cell0210,#cell0310,#cell0410,#cell0510,#cell0610,#cell0710,#cell0810,#cell0910 {
+    border-left: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+#cell0101,#cell0102,#cell0103,#cell0104,#cell0105,#cell0106,#cell0107,#cell0108,#cell0109,
+#cell0401,#cell0402,#cell0403,#cell0404,#cell0405,#cell0406,#cell0407,#cell0408,#cell0409,
+#cell0701,#cell0702,#cell0703,#cell0704,#cell0705,#cell0706,#cell0707,#cell0708,#cell0709,
+#cell1001,#cell1002,#cell1003,#cell1004,#cell1005,#cell1006,#cell1007,#cell1008,#cell1009 {
+    border-top: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+#cell0100,#cell0200,#cell0300,#cell0400,#cell0500,#cell0600,#cell0700,#cell0800,#cell0900,
+#cell0103,#cell0203,#cell0303,#cell0403,#cell0503,#cell0603,#cell0703,#cell0803,#cell0903,
+#cell0106,#cell0206,#cell0306,#cell0406,#cell0506,#cell0606,#cell0706,#cell0806,#cell0906,
+#cell0109,#cell0209,#cell0309,#cell0409,#cell0509,#cell0609,#cell0709,#cell0809,#cell0909 {
+    border-right: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+#cell0001,#cell0002,#cell0003,#cell0004,#cell0005,#cell0006,#cell0007,#cell0008,#cell0009,
+#cell0301,#cell0302,#cell0303,#cell0304,#cell0305,#cell0306,#cell0307,#cell0308,#cell0309,
+#cell0601,#cell0602,#cell0603,#cell0604,#cell0605,#cell0606,#cell0607,#cell0608,#cell0609,
+#cell0901,#cell0902,#cell0903,#cell0904,#cell0905,#cell0906,#cell0907,#cell0908,#cell0909 {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}

@@ -28,12 +28,12 @@ Auth::routes();
 //Redirects 'sudokoo/' to '/sudokoo/list/sudoku' ('sudokoo' is the vhost used during development)
 Route::redirect('/','sudokoo/list/sudoku');
 
-//Sudoku routes
+//SudokuGrid routes
 Route::resource('sudokoo','App\Http\Controllers\SudokuController')->except('index','show','create','store','edit','update','destroy');
 Route::get('/sudokoo/list/sudoku', 'App\Http\Controllers\SudokuController@index')->name('sudoku.list');
 Route::get('/sudokoo/sudoku/{id}','App\Http\Controllers\SudokuController@show')->name('sudoku.show');
 Route::get('/sudokoo/create/sudoku','App\Http\Controllers\SudokuController@create')->name('sudoku.create')->middleware(['auth','not.blocked']);
-Route::post('/sudokoo/create/sudoku', 'App\Http\Controllers\SudokuController@store')->middleware('auth');
+Route::post('/sudokoo/create/sudoku', 'App\Http\Controllers\SudokuController@store')->name('sudoku.store')->middleware('auth');
 Route::get('/sudokoo/edit/sudoku/{id}','App\Http\Controllers\SudokuController@edit')->name('sudoku.edit')->middleware(['auth','not.blocked']);
 Route::post('/sudokoo/edit/sudoku/{id}','App\Http\Controllers\SudokuController@update')->middleware('auth');
 Route::get('/sudokoo/destroy/sudoku/{id}','App\Http\Controllers\SudokuController@destroy')->name('sudoku.destroy')->middleware(['auth','not.blocked']);
