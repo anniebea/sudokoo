@@ -84,28 +84,5 @@
                 </div>
             </div>
         </form>
-
-        {{--            Comments and ratings--}}
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="card">
-                    <div class="card-header" id="commentCard">{{ __('COMMENTS') }}</div>
-
-                    <div class="card-body">
-                        <div class="bg-danger">Space for comment module</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-header">{{ __('RATINGS') }}</div>
-
-                    <div class="card-body">
-                        <div class="bg-danger">Space for rating module</div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
