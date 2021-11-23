@@ -76,8 +76,8 @@
                             </li>
 
                             <li class="list-group-item btn-group">
-                                <button class="btn btn-dark" id="penBtn" aria-pressed="true" type="button"></button>
-                                <button class="btn btn-primary" id="submitBtn" type="submit"></button>
+                                <button class="btn btn-outline-dark" id="penBtn" aria-pressed="true" type="button"></button>
+                                <button class="btn btn-outline-primary" id="submitBtn" type="submit"></button>
                             </li>
                         </ul>
                     </div>

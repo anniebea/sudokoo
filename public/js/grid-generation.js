@@ -6,8 +6,9 @@ function generateCell(div, id, given) {
     cell.dataset.selected = 'false';
     cell.dataset.hasError = 'false';
     cell.dataset.given = given;
-    cell.dataset.pencilMarks = '';
     cell.dataset.penMark = '';
+    cell.dataset.pencilMarks = '';
+    cell.dataset.pencilCount = '0';
     div.appendChild(cell);
 }
 

@@ -1,14 +1,31 @@
-/*Buttons that use Font Awesome*/
+/*---------------------------
+Buttons that use Font Awesome
+---------------------------*/
 #penBtn::before {
     font-family: 'Font Awesome 5 Free';
     content: '\f304';
     font-weight: 600;
 }
 
+#penBtn[aria-pressed='true'] {
+    background-color: #343a40;
+}
+
+#penBtn[aria-pressed='true']::before {
+    color: white;
+}
+
 #pencilBtn::before {
     font-family: 'Font Awesome 5 Free';
     content: '\f303';
     font-weight: 600;
+}
+
+#pencilBtn[aria-pressed='true'] {
+    background-color: #6cb2eb;
+}
+
+#pencilBtn[aria-pressed='true']::before {
     color: white;
 }
 
@@ -31,24 +48,24 @@
     font-family: 'Font Awesome 5 Free';
     content: '\f00c';
     font-weight: 600;
-    color: white;
 }
 
 #finishBtn::before {
     font-family: 'Font Awesome 5 Free';
     content: '\f00c';
     font-weight: 600;
-    color: white;
 }
 
 #restart::before {
     font-family: 'Font Awesome 5 Free';
     content: '\f01e';
     font-weight: 600;
-    color: white;
 }
 
-/*General card styles*/
+
+/*----------------------------------
+Size of Rule, Grid and Control cards
+----------------------------------*/
 #ruleCard, #controlCard {
      /*width: 25%;*/
      min-width: 50px;
@@ -76,33 +93,61 @@
     border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
+
+/*-------------------------------------------
+Displaying givens, pen marks and pencil marks
+-------------------------------------------*/
 .gridCell[data-selected=true] {
     outline: 2px solid blue;
 }
 
-.gridCell[data-given]:not([data-given=''])::after { /* Applies to those gridCells, which have a 'given' attribute that has a value stored */
+/* Has a 'given' */
+.gridCell:not([data-given=''])::after {
     font-weight: bold;
     font-size: 1.3em;
     color: black;
     content: attr(data-given);
 }
 
+/* Has a 'given' with an error */
 .gridCell[data-has-error=true]:not([data-given=''])::after {
     color: red;
     content: attr(data-given);
 }
 
-.gridCell[data-pen-mark]:not([data-pen-mark=''])::after {
+/* Has stored pen marks, no givens */
+.gridCell[data-given='']:not([data-pen-mark=''])::after {
     font-weight: bold;
     font-size: 1.3em;
     color: royalblue;
     content: attr(data-pen-mark);
 }
 
-.gridCell[data-has-error=true]:not([data-pen-mark=''])::after {
+/* Has a 'pen' with an error, no givens */
+.gridCell[data-has-error=true][data-given='']:not([data-pen-mark=''])::after {
     color: red;
     content: attr(data-pen-mark);
 }
+
+/* Preventing overflow of pencil marks */
+.gridCell[data-pencil-count='6']  { font-size: 95%; }
+.gridCell[data-pencil-count='7']  { font-size: 85%; }
+.gridCell[data-pencil-count='8']  { font-size: 70%; }
+.gridCell[data-pencil-count='9']  { font-size: 65%; }
+.gridCell[data-pencil-count='10'] { font-size: 60%; }
+
+/* Has stored pencil marks, no pen marks or givens */
+.gridCell[data-given=''][data-pen-mark='']:not([data-pencil-marks=''])::after {
+    font-size: 0.5em;
+    color: royalblue;
+    content: attr(data-pencil-marks);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+}
+
 
 /*-----------
 Cell borders

@@ -1,5 +1,5 @@
 /**
- * Main function for handling key and button presses by user
+ * Main function for handling key and number button presses by user.
  *
  * @param key
  */
@@ -8,7 +8,16 @@ function inputHandler(key) {
 
     if (cell != -1) { //if a cell has been selected
         let grid = document.getElementById('grid');
-        if (grid.dataset.mode == 'solving') {
+        if (key == ' ') {
+            let penBtn = document.getElementById('penBtn').ariaPressed;
+            if (penBtn == 'true') {
+                modeSwitch('pencil');
+            }
+            else {
+                modeSwitch('pen');
+            }
+        }
+        else if (grid.dataset.mode == 'solving') {
             if (cell.dataset.given == '') {
                 if (key === 'ArrowUp' || key === 'ArrowDown' || key === 'ArrowLeft' || key === 'ArrowRight') {
                     if(getBox3x3(cell.id) > 0) {
@@ -38,8 +47,8 @@ function inputHandler(key) {
     }
 }
 
-/*
-* Main function for handling of clicks on cells
+/**
+* Main function for handling of clicks on cells.
 */
 function selectCell(cell) {
     if(cell.dataset.selected === 'true') {
@@ -63,4 +72,16 @@ function getSelectedCell() {
         }
     }
     return 'cell-1';
+}
+
+/**
+ * Input mode/type selection.
+ */
+function modeSwitch(mode) {
+    let onBtn = mode + 'Btn'; //button to be turned on
+    document.getElementById('penBtn').ariaPressed = false;
+    document.getElementById('pencilBtn').ariaPressed = false;
+
+    document.getElementById(onBtn).ariaPressed = true;
+
 }
