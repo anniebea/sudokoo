@@ -43,7 +43,7 @@ function generate3x3(contentArray = []) {
 
     for (let i=0; i<11; i++) {
         row = document.createElement('div');
-        row.className = 'row';
+        row.className = 'row justify-content-lg-center';
         grid.appendChild(row);
 
         for (let j=0; j<11; j++) {

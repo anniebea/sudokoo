@@ -6,3 +6,7 @@
 .btn-outline-info:hover {
     color: white;
 }
+
+.content-row {
+    margin-bottom: 1.5rem;
+}

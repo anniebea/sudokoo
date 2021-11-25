@@ -14,18 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Returns the main laravel welcome page
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 Auth::routes();
 
 //returns main view of personal web page
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-//Redirects 'sudokoo/' to '/sudokoo/list/sudoku' ('sudokoo' is the vhost used during development)
+//Redirects 'sudokoo/' to 'sudokoo/sudokoo/list/sudoku' ('sudokoo' is the vhost used during development)
 Route::redirect('/','sudokoo/list/sudoku');
 
 //SudokuGrid routes
@@ -46,7 +41,9 @@ Route::get('/sudokoo/user/{id}','App\Http\Controllers\UserController@show')->nam
 //Route::get('/sudokoo/create/user', 'App\Http\Controllers\UserController@create')->name('user.create');
 Route::post('/sudokoo/create/user','App\Http\Controllers\UserController@store')->middleware(['auth','not.blocked']);
 Route::get('/sudokoo/edit/user/{id}','App\Http\Controllers\UserController@edit')->name('user.edit')->middleware(['auth','not.blocked','auth.user']);
-Route::post('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@update')->name('user.update')->middleware(['auth','not.blocked','auth.user']);
+Route::patch('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@update')->name('user.update')->middleware(['auth','not.blocked','auth.user']);
+Route::get('/sudokoo/edit/userPass/{id}','App\Http\Controllers\UserController@editPassword')->name('password.edit')->middleware(['auth','not.blocked','auth.user']);
+Route::patch('sudokoo/edit/userPass/{id}', 'App\Http\Controllers\UserController@updatePassword')->name('password.change')->middleware(['auth','not.blocked','auth.user']);
 //Route::get('/sudokoo/destroy/user/{id}', 'App\Http\Controllers\UserController@destroy')->name('user.destroy')->middleware(['auth','not.blocked','auth.user']);
 //Route::post('/sudokoo/search/user', 'App\Http\Controllers\UserController@postSearch')->name('user.search')->middleware(['auth','not.blocked']);
 Route::get('/sudokoo/role/user/{id}','App\Http\Controllers\UserController@editRole')->name('role.edit')->middleware(['auth','not.blocked', 'admin']);

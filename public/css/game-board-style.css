@@ -67,17 +67,24 @@ Buttons that use Font Awesome
 Size of Rule, Grid and Control cards
 ----------------------------------*/
 #ruleCard, #controlCard {
-     /*width: 25%;*/
-     min-width: 50px;
- }
+    /*width: 15vw;*/
+    min-width: 50px;
+    max-width: 20vw;
+}
 
-#gridCard {
-    /*width: 50%;*/
+/*#gridCard {*/
+/*    min-width: 350px;*/
+/*    max-width: 100vh;*/
+/*}*/
+
+#grid {
+    display: block;
     min-width: 350px;
 }
 
-#grid {
-    display: inline-block;
+/* Ensure all row's cells are displayed in one line */
+#grid > .row {
+    min-width: 340px;
 }
 
 .gridCell {
@@ -87,8 +94,8 @@ Size of Rule, Grid and Control cards
     width: 30px;
     height: 30px;
 
-    max-width: 300px;
-    max-height: 300px;
+    max-width:  100vh;
+    max-height: 100vh;
 
     border: 1px solid rgba(0, 0, 0, 0.25);
 }
@@ -104,9 +111,14 @@ Displaying givens, pen marks and pencil marks
 /* Has a 'given' */
 .gridCell:not([data-given=''])::after {
     font-weight: bold;
-    font-size: 1.3em;
+    font-size: 1.2rem;
     color: black;
     content: attr(data-given);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
 }
 
 /* Has a 'given' with an error */
@@ -118,9 +130,14 @@ Displaying givens, pen marks and pencil marks
 /* Has stored pen marks, no givens */
 .gridCell[data-given='']:not([data-pen-mark=''])::after {
     font-weight: bold;
-    font-size: 1.3em;
+    font-size: 1.2rem;
     color: royalblue;
     content: attr(data-pen-mark);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
 }
 
 /* Has a 'pen' with an error, no givens */
@@ -129,16 +146,9 @@ Displaying givens, pen marks and pencil marks
     content: attr(data-pen-mark);
 }
 
-/* Preventing overflow of pencil marks */
-.gridCell[data-pencil-count='6']  { font-size: 95%; }
-.gridCell[data-pencil-count='7']  { font-size: 85%; }
-.gridCell[data-pencil-count='8']  { font-size: 70%; }
-.gridCell[data-pencil-count='9']  { font-size: 65%; }
-.gridCell[data-pencil-count='10'] { font-size: 60%; }
-
 /* Has stored pencil marks, no pen marks or givens */
 .gridCell[data-given=''][data-pen-mark='']:not([data-pencil-marks=''])::after {
-    font-size: 0.5em;
+    font-size: 0.5rem;
     color: royalblue;
     content: attr(data-pencil-marks);
 
@@ -147,6 +157,13 @@ Displaying givens, pen marks and pencil marks
     justify-content: center;
     height: inherit;
 }
+
+/* Preventing overflow of pencil marks */
+.gridCell[data-pencil-count='6']::after  { font-size: 95%; }
+.gridCell[data-pencil-count='7']::after  { font-size: 85%; }
+.gridCell[data-pencil-count='8']::after  { font-size: 70%; }
+.gridCell[data-pencil-count='9']::after  { font-size: 65%; }
+.gridCell[data-pencil-count='10']::after { font-size: 60%; }
 
 
 /*-----------

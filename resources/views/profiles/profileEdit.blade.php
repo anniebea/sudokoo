@@ -5,11 +5,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header"><b>{{ $user->name }}</b> | Edit profile information</div>
+                    <div class="card-header"><b>{{ $user->name }}</b> | {{ __('Edit profile information') }}</div>
                     <form class="card-body" method="post"
                           action="{{ route('user.update', ['id' => $user->id]) }}"
                     >
                         @csrf
+                        @method('PATCH')
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
@@ -25,7 +26,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row" display="none" style="display: none">
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">

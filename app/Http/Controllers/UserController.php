@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -78,13 +80,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:users'],
+            'name' => ['sometimes', 'string', 'max:32', 'unique:users,name,' . $id],
+            'email' => ['sometimes', 'string', 'email', 'max:64', 'unique:users,email,' . $id],
         ]);
 
         DB::table('users')
             ->where('id', $id)
             ->update([
                 'name' => $request->name,
+                'email' => $request->email,
             ]);
 
         return redirect()->route('user.show', ['id' => $id]);
@@ -135,7 +139,7 @@ class UserController extends Controller
     public function updateRole(Request $request)
     {
         $request->validate([
-            'role' => ['required', 'exists:roles,id'],
+            'role' => ['required', 'numeric', 'exists:roles,id'],
         ]);
 
         DB::table('users')
@@ -145,5 +149,44 @@ class UserController extends Controller
             ]);
 
         return redirect()->route('user.list');
+    }
+
+    /**
+     * Show the form for changing the password of a specific user.
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function editPassword($id)
+    {
+        $user = $this->getUser($id);
+
+        return view('profiles.passwordChange', ['user' => $user]);
+    }
+
+    /**
+     * Update the password of a specific user.
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword(Request $request, $id)
+    {
+        $request->validate([
+            'oldPassword' => ['required', 'string', 'password'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        DB::table('users')
+            ->where('id', $id)
+            ->update([
+                'name' => Auth::user()->name,
+                'email' => Auth::user()->email,
+                'password' => Hash::make($request['password']),
+            ]);
+        echo(Auth::user()->name . '--' . Auth::user()->email);
+
+        return redirect()->route('user.show', ['id' => $id]);
     }
 }

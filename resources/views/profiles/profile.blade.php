@@ -25,25 +25,28 @@
                             <div class="tab-content">
 {{--                                Profile information--}}
                                 <div class="tab-pane active" id="profileInfo" role="tabpanel" aria-labelledby="profileInfo-tab">
-                                    <div class="container">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <p><b>{{ __('E-mail address') }}:</b> {{ $user->email }}</p>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <p><b>{{ __('Birthday') }}:</b> {{ $user->date_of_birth }}</p>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <p><b>{{ __('Role') }}:</b> {{ $user->role->name }}</p>
+                                        </li>
                                         @if($login == $user->id)
-                                        <a class="btn btn-primary" href="{{ route('user.edit', ['id' => $user->id]) }}">
-                                            Edit profile information
-                                        </a>
-                                        @endif
+                                            <li class="list-group-item">
+                                                <a class="btn btn-primary" href="{{ route('user.edit', ['id' => $user->id]) }}">
+                                                    {{ __('Edit profile information') }}
+                                                </a>
 
-                                        <ul class="list-group">
-                                            <li class="list-group-item">
-                                                <p><b>{{ __('E-mail address') }}:</b> {{ $user->email }}</p>
+                                                <a class="btn btn-primary" href="{{ route('password.edit', ['id' => $user->id]) }}">
+                                                    {{ __('Change password') }}
+                                                </a>
                                             </li>
-                                            <li class="list-group-item">
-                                                <p><b>{{ __('Birthday') }}:</b> {{ $user->date_of_birth }}</p>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <p><b>{{ __('Role') }}:</b> {{ $user->role->name }}</p>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                        @endif
+                                    </ul>
                                 </div>
 
 {{--                                List of published puzzles--}}
