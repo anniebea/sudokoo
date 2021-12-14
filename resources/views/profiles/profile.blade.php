@@ -10,15 +10,12 @@
                     </div>
                     <div class="card-body">
                         <div class="card" style="margin: 1em">
-                            <ul class="nav nav-tabs">
+                            <ul class="nav nav-tabs nav-fill">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="profileInfo-tab" data-toggle="tab" href="#profileInfo" role="tab" aria-controls="profileInfo" aria-selected="true">{{ __('Profile information') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="publicPuzzles-tab" data-toggle="tab" href="#publicPuzzles" role="tab" aria-controls="publicPuzzles" aria-selected="false">{{ __('Published puzzles') }}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="privatePuzzles-tab" data-toggle="tab" href="#privatePuzzles" role="tab" aria-controls="privatePuzzles" aria-selected="false">{{ __('Private puzzles') }}</a>
+                                    <a class="nav-link" id="puzzles-tab" data-toggle="tab" href="#puzzles" role="tab" aria-controls="puzzles" aria-selected="false">{{ __('Published puzzles') }}</a>
                                 </li>
                             </ul>
 
@@ -50,16 +47,33 @@
                                 </div>
 
 {{--                                List of published puzzles--}}
-                                <div class="tab-pane" id="publicPuzzles" role="tabpanel" aria-labelledby="publicPuzzles-tab">
+                                <div class="tab-pane" id="puzzles" role="tabpanel" aria-labelledby="puzzles-tab">
                                     <div class="container">
-                                        <p class="bg-danger">Published puzzles</p>
-                                    </div>
-                                </div>
-
-{{--                                List of private puzzles--}}
-                                <div class="tab-pane" id="privatePuzzles" role="tabpanel" aria-labelledby="privatePuzzles-tab">
-                                    <div class="container">
-                                        <p class="bg-danger">Private puzzles</p>
+                                        @if($puzzles == [])
+                                            <p class="bg-danger">Published puzzles</p>
+                                        @else
+                                            @foreach($puzzles as $puzzle)
+                                                <div class="card-group">
+                                                    <div class="card-body">
+                                                        <ul class="list-group">
+                                                            <a class="list-group-item list-group-item-primary list-group-item-primary"
+                                                               href="{{ route('sudoku.show', ['id' => $puzzle->id]) }}">
+                                                                {{ $puzzle->title }}
+                                                            </a>
+                                                            <li class="list-group-item">
+                                                                <div>
+                                                                    <p>Uploaded: {{ date( 'd. M, Y', strtotime($puzzle->created_at)) }}</p>
+                                                                    <p>Rating: coming soon</p>
+                                                                    {{--                                            92%--}}
+                                                                    <p>Difficulty rating: coming soon</p>
+                                                                    {{--                                            4/5--}}
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
                                     </div>
                                 </div>
                             </div>

@@ -46,7 +46,7 @@ class BlockingController extends Controller
             'user_id' => ['required', 'exists:users,id'],
         ]);
 
-        DB::table('admin')
+        DB::table('blockings')
             ->insert([
                 'date_to' => $request->date_to,
                 'date_from' => Carbon::now()->toDateString(),

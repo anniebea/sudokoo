@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
+use Carbon\Traits\Date;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,9 +20,33 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('role')->get();
+//        Users - users who have never been blocked
+        $users = User::with('role')->whereNull('is_blocked')->get();
+//        Warned - users wh have been temporarily blocked before
+        $warned = User::with('role')->where('is_blocked', '=', '0')->get();
 
-        return view('profiles.profileList', ['users' => $users]);
+//        Blocked - users who are currently temporarily blocked
+        $blocked = DB::table('users')
+            ->join('blockings','users.id','=', 'blockings.user_id')
+            ->join('roles', 'users.role_id','=','roles.id')
+            ->where('date_to', '>', date('Y-m-d'))
+            ->select('users.*','roles.name as role', 'blockings.date_from', 'blockings.date_to')
+            ->get();
+
+//        Permanent - users who are blocked permanently
+        $permanent = DB::table('users')
+            ->join('blockings','users.id','=', 'blockings.user_id')
+            ->join('roles', 'users.role_id','=','roles.id')
+            ->whereNull('blockings.date_to')
+            ->select('users.*','roles.name as role', 'blockings.date_from')
+            ->get();
+
+        return view('profiles.profileList', [
+            'users' => $users,
+            'warned' => $warned,
+            'blockedUsers' => $blocked,
+            'permanentlyBlocked' => $permanent,
+        ]);
     }
 
     /**
@@ -55,7 +80,16 @@ class UserController extends Controller
     {
         $user = $this->getUser($id);
 
-        return view('profiles.profile', ['user' => $user, 'login' => Auth::id()]);
+        $puzzles = DB::table('sudoku_grids')
+            ->where('user_id', '=', $id)
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('profiles.profile', [
+            'user' => $user,
+            'login' => Auth::id(),
+            'puzzles' => $puzzles,
+         ]);
     }
 
     /**

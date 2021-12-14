@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +25,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+//        Check for people to unblock
+        $schedule->call(function () {
+            DB::table('users')
+                ->join('blockings','users.id','=', 'blockings.user_id')
+                ->where('blockings.date_to', '<', date('Y-m-d'))
+                ->update(['users.is_blocked' => '0']);
+        })->dailyAt('04:00');
     }
 
     /**

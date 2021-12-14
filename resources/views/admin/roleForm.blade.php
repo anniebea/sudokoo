@@ -14,7 +14,7 @@
                             <input type="hidden" name="user_id" value="{{ $user->id }}">
 
                             <div class="form-group row">
-                                <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Blocking end date') }}:</label>
+                                <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}:</label>
 
                                 <select id="role" name="role">
                                     @foreach($roles as $role)
