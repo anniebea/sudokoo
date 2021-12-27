@@ -48,7 +48,7 @@ class CommentController extends Controller
         $comment->content = $request->comment;
         $comment->save();
 
-        return redirect()->route('sudoku.show', ['id' => $request->sudokuGrid->id]);
+        return redirect()->route('sudoku.show', ['id' => $comment->sudokuGrid->id]);
     }
 
     /**

@@ -6,8 +6,6 @@ for (let i = 0; i < commentEditBtns.length; i++) {
     let cancel = document.getElementById('CommentCancel'+commentEditBtns[i].id.slice(-1));
 
     commentEditBtns[i].addEventListener('click',function() {
-        document.getElementById('testArea').innerHTML+= '+' + commentEditBtns[i].id.slice(-1);
-
         form.style.display = 'block';
         content.style.display = 'none';
     });
