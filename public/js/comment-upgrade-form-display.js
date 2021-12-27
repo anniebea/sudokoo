@@ -1,7 +1,6 @@
 let commentEditBtns = document.getElementsByClassName('editComment');
 
 for (let i = 0; i < commentEditBtns.length; i++) {
-    document.getElementById('testArea').innerHTML+= '-' + i;
     let form = document.getElementById('CommentUpdate'+commentEditBtns[i].id.slice(-1));
     let content = document.getElementById('CommentContent'+commentEditBtns[i].id.slice(-1));
     let cancel = document.getElementById('CommentCancel'+commentEditBtns[i].id.slice(-1));

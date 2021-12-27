@@ -190,7 +190,6 @@
                             </form>
                         @endif
                         <div>
-                            <div id="testArea">teeeest</div>
                             @if(count($comments) == 0)
                                 <ul class="list-group">
                                     <div class="list-group-item">
