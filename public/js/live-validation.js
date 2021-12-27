@@ -283,6 +283,12 @@ function checkBox(cell) {
     return hasError;
 }
 
+function markAllCorrect() {
+    for (let i = 0; i < gridCells.length; i++) {
+        gridCells[i].dataset.hasError = 'false';
+    }
+}
+
 /**
  * Run all necessary checks for classic Sudoku rules.
  *

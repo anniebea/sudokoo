@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rating;
 use App\Models\SudokuGrid;
 use App\Models\SudokuGridContents;
 use Carbon\Carbon;
@@ -31,7 +32,11 @@ class SudokuController extends Controller
             ->orderByDesc('created_at')
             ->get();
 
-        return view('sudoku.sudokuList', ['grids' => $grids]);
+        return view('sudoku.sudokuList', [
+            'grids' => $grids,
+//            'rating' => $rating,
+//            'difficultyRating' => $difficultyRating
+        ]);
     }
 
     /**
@@ -107,7 +112,20 @@ class SudokuController extends Controller
                 ];
             });
 
-        return view('sudoku.sudokuSolve', ['grid' => $grid, 'contents' => $contents, 'user' => Auth::user()]);
+        $ratings = app(RatingController::class)->show($grid->id);
+        $difficultyRatings = app(DifficultyRatingController::class)->show($grid);
+
+
+        return view('sudoku.sudokuSolve', [
+            'grid' => $grid,
+            'contents' => $contents,
+            'user' => Auth::user(),
+            'avgRating' => $ratings[0],
+            'userRating' => $ratings[1],
+            'avgDifficultyRating' => $difficultyRatings[0],
+            'userDifficultyRating' => $difficultyRatings[1],
+            'authorDifficultyRating' => $difficultyRatings[2],
+        ]);
     }
 
     /**

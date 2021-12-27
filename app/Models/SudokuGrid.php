@@ -25,4 +25,9 @@ class SudokuGrid extends Model
     public function contents() {
         return $this->hasMany('App\Models\SudokuGridContents');
     }
+
+    //FK relationship
+    public function rating() {
+        return $this->hasMany('App\Models\Rating');
+    }
 }

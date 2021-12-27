@@ -78,13 +78,52 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">{{ __('Congratulations!') }}</h5>
+                            <h2 class="modal-title">{{ __('Congratulations!') }}</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p> {{ __('Puzzle completed!') }}</p>
+                            <p class="row justify-content-center"> {{ __('Puzzle completed!') }}</p>
+                            @if(Auth::check())
+                                <form id="RatingForm" method="post"
+                                      action="{{ route('rating.store', ['id' => Auth::id()]) }}"
+                                >
+                                    @csrf
+                                    <input type="hidden" id="user" name="user" value="{{ Auth::id() }}">
+                                    <input type="hidden" id="grid" name="grid" value="{{ $grid->id }}">
+
+                                    <div class="form-group">
+                                        <label for="rating" class="row justify-content-center">{{ __('Did you like the puzzle') }}?</label>
+                                        <input type="hidden" id="likeValue" name="rating" value="-1">
+
+                                        <div id="likeRow" class="row justify-content-center">
+                                            <span id="like" data-selected="false"></span>
+
+                                            <span id="dislike" data-selected="false"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="difficultyRating" class="row justify-content-center">{{ __('How difficult was the puzzle') }}?</label>
+                                        <input type="hidden" id="starValue" name="difficultyRating" value="-1">
+
+                                        <div id="starRow" class="row justify-content-center">
+                                            <span id="star1" data-selected="false"></span>
+                                            <span id="star2" data-selected="false"></span>
+                                            <span id="star3" data-selected="false"></span>
+                                            <span id="star4" data-selected="false"></span>
+                                            <span id="star5" data-selected="false"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row justify-content-center">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Submit rating') }}
+                                        </button>
+                                    </div>
+                                </form>
+                            @endif
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -131,7 +170,21 @@
                     <div class="card-header">{{ __('RATINGS') }}</div>
 
                     <div class="card-body">
-                        <div class="bg-danger">Space for rating module</div>
+                        <details>
+{{--                            number_format($avgRating*100,2)--}}
+                            <summary>{{ __('Overall rating') }}: {{ $avgRating }}</summary>
+                            <ul>
+                                <li>{{ __('Your rating') }}: {{ $userRating }}</li>
+                            </ul>
+                        </details>
+
+                        <details>
+                            <summary>{{ __('Difficulty rating') }}: {{ $avgDifficultyRating }}</summary>
+                            <ul>
+                                <li>{{ __('Your rating') }}: {{ $userDifficultyRating }}</li>
+                                <li>{{ __('Author\'s rating') }}: {{ $authorDifficultyRating }}</li>
+                            </ul>
+                        </details>
                     </div>
                 </div>
             </div>

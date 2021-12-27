@@ -62,6 +62,63 @@ Buttons that use Font Awesome
     font-weight: 600;
 }
 
+/*---------------------------
+Rating related CSS
+---------------------------*/
+
+#star1[data-selected='true']::before,
+#star2[data-selected='true']::before,
+#star3[data-selected='true']::before,
+#star4[data-selected='true']::before,
+#star5[data-selected='true']::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f005';
+    font-weight: 600;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#star1[data-selected='false']::before,
+#star2[data-selected='false']::before,
+#star3[data-selected='false']::before,
+#star4[data-selected='false']::before,
+#star5[data-selected='false']::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f005';
+    font-weight: 100;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#like[data-selected='true']::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f164';
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding-right: 0.5rem;
+}
+#like[data-selected='false']::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f164';
+    font-weight: 100;
+    font-size: 1.2rem;
+    padding-right: 0.5rem;
+}
+
+#dislike[data-selected='true']::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f165';
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding-left: 0.5rem;
+}
+#dislike[data-selected='false']::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f165';
+    font-weight: 100;
+    font-size: 1.2rem;
+    padding-left: 0.5rem;
+}
 
 /*----------------------------------
 Size of Rule, Grid and Control cards

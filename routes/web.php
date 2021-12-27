@@ -34,6 +34,12 @@ Route::post('/sudokoo/edit/sudoku/{id}','App\Http\Controllers\SudokuController@u
 Route::get('/sudokoo/destroy/sudoku/{id}','App\Http\Controllers\SudokuController@destroy')->name('sudoku.destroy')->middleware(['auth','not.blocked']);
 //Route::post('/sudokoo/search/sudoku', 'App\Http\Controllers\SudokuController@postSearch')->name('sudoku.search')->middleware(['auth','not.blocked']);
 
+//Rating routes
+Route::get('/sudokoo/create/rating/{id}', 'App\Http\Controllers\RatingController@create')->name('rating.create')->middleware(['auth','not.blocked']);
+Route::post('/sudokoo/create/rating/{id}', 'App\Http\Controllers\RatingController@store')->name('rating.store')->middleware(['auth','not.blocked']);
+Route::get('/sudokoo/create/difficultyRating/{id}', 'App\Http\Controllers\DifficultyRatingController@create')->name('difficultyRating.create')->middleware(['auth','not.blocked']);
+Route::post('/sudokoo/create/difficultyRating/{id}', 'App\Http\Controllers\DifficultyRatingController@store')->name('difficultyRating.store')->middleware(['auth','not.blocked']);
+
 //User routes
 Route::resource('users','App\Http\Controllers\UserController')->except('index','show','create','store','edit','update','destroy');
 Route::get('/sudokoo/list/user', 'App\Http\Controllers\UserController@index')->name('user.list')->middleware(['auth','not.blocked','admin']);
