@@ -114,7 +114,7 @@ class SudokuController extends Controller
 
         $ratings = app(RatingController::class)->show($grid->id);
         $difficultyRatings = app(DifficultyRatingController::class)->show($grid);
-
+        $comments = app(CommentController::class)->show($grid);
 
         return view('sudoku.sudokuSolve', [
             'grid' => $grid,
@@ -125,6 +125,7 @@ class SudokuController extends Controller
             'avgDifficultyRating' => $difficultyRatings[0],
             'userDifficultyRating' => $difficultyRatings[1],
             'authorDifficultyRating' => $difficultyRatings[2],
+            'comments' => $comments,
         ]);
     }
 

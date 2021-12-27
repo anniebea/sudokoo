@@ -118,7 +118,7 @@
                                     </div>
 
                                     <div class="form-group row justify-content-center">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" form="RatingForm" class="btn btn-primary">
                                             {{ __('Submit rating') }}
                                         </button>
                                     </div>
@@ -160,7 +160,99 @@
                     <div class="card-header" id="commentCard">{{ __('COMMENTS') }}</div>
 
                     <div class="card-body">
-                        <div class="bg-danger">Space for comment module</div>
+                        @if(Auth::check())
+                            <form id="CommentForm" method="post"
+                                  action="{{ route('comment.store', ['id' => Auth::id()]) }}"
+                            >
+                                @csrf
+                                <input type="hidden" id="user" name="user" value="{{ Auth::id() }}">
+                                <input type="hidden" id="grid" name="grid" value="{{ $grid->id }}">
+
+                                <div class="form-group row">
+                                    <label for="comment" class="col-md-3 col-form-label text-md-right">{{ __('Enter comment') }}:</label>
+
+                                    <div class="col-md-9">
+                                        <textarea id="comment" type="text" class="form-control @error('comment') is-invalid @enderror" name="comment"></textarea>
+
+                                        @error('comment')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row justify-content-center">
+                                    <button type="submit" form="CommentForm" class="btn btn-primary">
+                                        {{ __('Publish comment') }}
+                                    </button>
+                                </div>
+                            </form>
+                        @endif
+                        <div>
+                            <div id="testArea">teeeest</div>
+                            @if(count($comments) == 0)
+                                <ul class="list-group">
+                                    <div class="list-group-item">
+                                        {{ __('No comments published yet!') }}
+                                    </div>
+                                </ul>
+                            @else
+                                @foreach($comments as $comment)
+                                    <div class="card-group">
+                                        <div class="card-body">
+                                            <ul class="list-group">
+                                                <div class="list-group-item">
+                                                    <b>
+                                                        {{ $comment->user->name }}, {{ date('H:i, d. M, Y', strtotime($comment->created_at)) }}
+                                                    </b>
+                                                </div>
+                                                <li class="list-group-item">
+                                                    <p class="commentContent overflow-auto" id="CommentContent{{ $comment->id }}">{{ $comment->content }}</p>
+                                                    @if($comment->user_id == Auth::id())
+                                                        <form id="CommentUpdate{{ $comment->id }}" method="post" style="display: none"
+                                                              action="{{ route('comment.update', ['id' => $comment->id]) }}"
+                                                        >
+                                                            @csrf
+                                                            <input type="hidden" id="user" name="user" value="{{ Auth::id() }}">
+                                                            <input type="hidden" id="grid" name="grid" value="{{ $grid->id }}">
+
+                                                            <div class="form-group row">
+                                                                <div class="col-md">
+                                                                    <textarea id="commentUpdate" type="text" class="form-control @error('commentUpdate') is-invalid @enderror" name="commentUpdate">{{ $comment->content }}</textarea>
+
+                                                                    @error('commentUpdate')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row justify-content-center">
+                                                                <div class="btn-group">
+                                                                    <button type="submit" form="CommentUpdate{{ $comment->id }}" class="btn btn-primary">
+                                                                        {{ __('Publish edit') }}
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-secondary" id="CommentCancel{{ $comment->id }}">
+                                                                        {{ __('Cancel') }}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+                                                        <div class="commentBtns">
+                                                            <span class="editComment" id="editComment{{ $comment->id }}"></span>
+                                                            <a href="{{ route('comment.destroy', ['id' => $comment->id]) }}" class="delete" id="delete{{ $comment->id }}"></a>
+                                                        </div>
+                                                    @endif
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

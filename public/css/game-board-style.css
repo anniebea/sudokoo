@@ -120,6 +120,33 @@ Rating related CSS
     padding-left: 0.5rem;
 }
 
+/*-----------------
+Comment related CSS
+-----------------*/
+.delete::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f2ed';
+    font-weight: 100;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.editComment:before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f044';
+    font-weight: 100;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.commentContent {
+    word-break: break-word;
+}
+
+.commentBtns {
+    float: right;
+}
+
 /*----------------------------------
 Size of Rule, Grid and Control cards
 ----------------------------------*/

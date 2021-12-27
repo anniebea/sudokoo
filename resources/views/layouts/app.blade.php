@@ -16,6 +16,7 @@
     <script src="{{ asset('js/cell-input.js') }}" defer></script>
     <script src="{{ asset('js/user-input-handling.js') }}" defer></script>
     <script src="{{ asset('js/rating-control.js') }}" defer></script>
+    <script src="{{ asset('js/comment-upgrade-form-display.js') }}" defer></script>
     <script src="{{ asset('js/navigation.js') }}" defer></script>
     <script src="{{ asset('js/live-validation.js') }}" defer></script>
     <script src="{{ asset('js/final-validation.js') }}"></script>

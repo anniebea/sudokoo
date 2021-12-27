@@ -40,6 +40,14 @@ Route::post('/sudokoo/create/rating/{id}', 'App\Http\Controllers\RatingControlle
 Route::get('/sudokoo/create/difficultyRating/{id}', 'App\Http\Controllers\DifficultyRatingController@create')->name('difficultyRating.create')->middleware(['auth','not.blocked']);
 Route::post('/sudokoo/create/difficultyRating/{id}', 'App\Http\Controllers\DifficultyRatingController@store')->name('difficultyRating.store')->middleware(['auth','not.blocked']);
 
+//Comment routes
+Route::resource('comment','App\Http\Controllers\CommentController')->except('show','create','store','edit','update','destroy');
+Route::get('/sudokoo/create/comment/{id}', 'App\Http\Controllers\CommentController@create')->name('comment.create')->middleware(['auth','not.blocked']);
+Route::post('/sudokoo/create/comment/{id}', 'App\Http\Controllers\CommentController@store')->name('comment.store')->middleware(['auth','not.blocked']);
+Route::get('/sudokoo/edit/comment/{id}','App\Http\Controllers\CommentController@edit')->name('comment.edit')->middleware(['auth','not.blocked']);
+Route::post('/sudokoo/edit/comment/{id}','App\Http\Controllers\CommentController@update')->name('comment.update')->middleware('auth','not.blocked');
+Route::get('/sudokoo/destroy/comment/{id}','App\Http\Controllers\CommentController@destroy')->name('comment.destroy')->middleware(['auth','not.blocked']);
+
 //User routes
 Route::resource('users','App\Http\Controllers\UserController')->except('index','show','create','store','edit','update','destroy');
 Route::get('/sudokoo/list/user', 'App\Http\Controllers\UserController@index')->name('user.list')->middleware(['auth','not.blocked','admin']);

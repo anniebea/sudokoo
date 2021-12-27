@@ -14,7 +14,7 @@
 {{--                        single sudoku card--}}
                         @if(count($grids) == 0)
                             <ul class="list-group">
-                                <a class="list-group-item list-group-item-primary list-group-item-primary" href="#">
+                                <a class="list-group-item list-group-item-primary" href="#">
                                     {{ __('No puzzles published yet!') }}
                                 </a>
                             </ul>
@@ -23,7 +23,7 @@
                                 <div class="card-group">
                                     <div class="card-body">
                                         <ul class="list-group">
-                                            <a class="list-group-item list-group-item-primary list-group-item-primary"
+                                            <a class="list-group-item list-group-item-primary"
                                                href="{{ route('sudoku.show', ['id' => $grid->id]) }}">
                                                 {{ $grid->title }}
                                             </a>
