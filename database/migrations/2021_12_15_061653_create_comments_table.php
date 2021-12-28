@@ -16,7 +16,7 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('content', 512);
-            $table->boolean('is_reported')->nullable();
+            $table->boolean('is_reviewed')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('sudoku_grid_id')->constrained();
             $table->timestamps();
