@@ -131,12 +131,25 @@ Comment related CSS
     color: black;
 }
 
-.editComment:before {
+.editComment::before {
     font-family: 'Font Awesome 5 Free';
     content: '\f044';
     font-weight: 100;
     font-size: 1.2rem;
     cursor: pointer;
+}
+
+.report:hover { /* remove underline */
+    text-decoration: none;
+}
+
+.report::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f024';
+    font-weight: 100;
+    font-size: 1.2rem;
+    color: black;
+    float: right;
 }
 
 .commentContent {

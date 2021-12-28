@@ -45,8 +45,11 @@ Route::resource('comment','App\Http\Controllers\CommentController')->except('sho
 Route::get('/sudokoo/create/comment/{id}', 'App\Http\Controllers\CommentController@create')->name('comment.create')->middleware(['auth','not.blocked']);
 Route::post('/sudokoo/create/comment/{id}', 'App\Http\Controllers\CommentController@store')->name('comment.store')->middleware(['auth','not.blocked']);
 Route::get('/sudokoo/edit/comment/{id}','App\Http\Controllers\CommentController@edit')->name('comment.edit')->middleware(['auth','not.blocked']);
-Route::post('/sudokoo/edit/comment/{id}','App\Http\Controllers\CommentController@update')->name('comment.update')->middleware('auth','not.blocked');
+Route::post('/sudokoo/edit/comment/{id}','App\Http\Controllers\CommentController@update')->name('comment.update')->middleware(['auth','not.blocked']);
 Route::get('/sudokoo/destroy/comment/{id}','App\Http\Controllers\CommentController@destroy')->name('comment.destroy')->middleware(['auth','not.blocked']);
+Route::get('/sudokoo/report/comment/{id}','App\Http\Controllers\CommentController@report')->name('comment.report')->middleware(['auth','not.blocked']);
+Route::get('/sudokoo/list/reported', 'App\Http\Controllers\CommentController@reportIndex')->name('report.index')->middleware(['auth','not.blocked','admin']);
+Route::get('/sudokoo/report/remove/{id}', 'App\Http\Controllers\CommentController@removeReport')->name('report.remove')->middleware(['auth','not.blocked','admin']);
 
 //User routes
 Route::resource('users','App\Http\Controllers\UserController')->except('index','show','create','store','edit','update','destroy');

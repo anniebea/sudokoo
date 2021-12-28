@@ -66,6 +66,9 @@
                         @else
 {{--                            Buttons available only to Administrators--}}
                             @if(Auth::user()->role->name == 'Administrators')
+                                <a class="nav-link" href="{{ route('report.index') }}">
+                                    {{ __('Reported comments') }}
+                                </a>
                                 <a class="nav-link" href="{{ action('App\Http\Controllers\UserController@index') }}">
                                     {{ __('All users') }}
                                 </a>

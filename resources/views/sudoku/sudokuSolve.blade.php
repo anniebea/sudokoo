@@ -244,6 +244,10 @@
                                                             <span class="editComment" id="editComment{{ $comment->id }}"></span>
                                                             <a href="{{ route('comment.destroy', ['id' => $comment->id]) }}" class="delete" id="delete{{ $comment->id }}"></a>
                                                         </div>
+                                                    @else
+                                                        <div class="reportButton">
+                                                            <a href="{{ route('comment.report', ['id' => $comment->id]) }}" class="report" id="reportComment{{ $comment->id }}"></a>
+                                                        </div>
                                                     @endif
                                                 </li>
                                             </ul>

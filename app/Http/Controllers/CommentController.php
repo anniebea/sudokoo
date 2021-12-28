@@ -107,10 +107,56 @@ class CommentController extends Controller
     public function destroy($id)
     {
         $comment = Comment::find($id);
-        $grid = $comment->sudokuGrid->id;
         $comment->deleted_at = Carbon::now()->toDateTimeString();
         $comment->save();
 
-        return redirect()->route('sudoku.show', ['id' => $grid]);
+        return redirect()->route('sudoku.show', ['id' => $comment->sudokuGrid->id]);
+    }
+
+    /**
+     * Add comment to reviewable comment list
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function report($id) {
+        $comment = Comment::find($id);
+        $comment->is_reviewed = '0';
+        $comment->save();
+
+        return redirect()->route('sudoku.show', ['id' => $comment->sudokuGrid->id]);
+    }
+
+    /**
+     * Remove comment from reviewable comment list.
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removeReport($id) {
+        $comment = Comment::find($id);
+        $comment->is_reviewed = '1';
+        $comment->save();
+
+        return redirect()->route('report.index');
+    }
+
+    /**
+     * Display a listing of reported comments.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function reportIndex() {
+        $reported = Comment::where('is_reviewed', '=', '0')
+            ->whereNull('deleted_at')
+            ->get();
+        $previouslyReported = Comment::where('is_reviewed', '=', '1')
+            ->whereNull('deleted_at')
+            ->get();
+
+        return view('admin.reportedComments', [
+            'reported' => $reported,
+            'prevReported' => $previouslyReported,
+        ]);
     }
 }
