@@ -1,4 +1,9 @@
-//returns which box the cell with ID cellID belongs to
+/**
+ * Return which box a cell with ID "cellID" belongs to.
+ *
+ * @param cellID
+ * @returns {number}
+ */
 function getBox3x3(cellID) {
     let id = getID(cellID);
     let row = getRow(cellID);
@@ -82,6 +87,12 @@ function getBox3x3(cellID) {
     return box;
 }
 
+/**
+ * Return all cells that belong to a box.
+ *
+ * @param box
+ * @returns {string[]|*[]}
+ */
 function getBoxCells3x3(box) {
     switch(box) {
         case 1:
@@ -120,7 +131,9 @@ function getColumn(cellID) {
 }
 
 /**
- * Check a grid's rows and columns for duplicates.
+ * Check a grid's rows and columns for duplicates (returns true if duplicates are found).
+ *
+ * @returns {boolean}
  */
 function checkRowsAndColumns() {
     let currentCellID = '';
@@ -221,13 +234,14 @@ function checkRowsAndColumns() {
 }
 
 /**
- * Check the box of a cell 'cell' for duplicates.
+ * Check the box of a cell 'cell' for duplicates (returns true if duplicates are found).
  *
  * @param cell
+ * @param boxCells
  */
-function checkBox(cell) {
-    let box = getBox3x3(cell.id);
-    let boxCells = getBoxCells3x3(box);
+function checkBox(boxCells) {
+    // let box = getBox3x3(cell.id);
+    // let boxCells = getBoxCells3x3(box);
     let currentCellID = '';
     let compareCellID = '';
     let currentCell, compareCell;
@@ -290,14 +304,34 @@ function markAllCorrect() {
 }
 
 /**
- * Run all necessary checks for classic Sudoku rules.
+ * Run all necessary checks for Sudoku rules.
  *
  * @param cell
  */
-function classicValidator3x3(cell) {
+function validator3x3(cell) {
     markAllCorrect();
     checkRowsAndColumns();
-    checkBox(cell);
+    for(let i=1; i<=9; i++) {
+        checkBox(getBoxCells3x3(i));
+    }
+
+    let ruleCheckmarks = document.getElementsByClassName('checkmark'); //all rules that are enabled in grid
+
+    for (let i in ruleCheckmarks) {
+        switch(ruleCheckmarks[i].id) {
+            case 'WindokuCheck':
+                windokuValidation(cell.id);
+                break;
+            case 'ChessKnightCheck':
+                for (let x = 1; x <= 9; x++) {
+                    for (let y = 1; y <= 9; y++) {
+                        let cellID = 'cell0' + x + '0' + y;
+                        knightValidation(document.getElementById(cellID));
+                    }
+                }
+                break;
+        }
+    }
 
     return checkRowsAndColumns() && checkBox(cell);
 }

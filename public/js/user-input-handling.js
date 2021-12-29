@@ -79,9 +79,9 @@ function getSelectedCell() {
  */
 function modeSwitch(mode) {
     let onBtn = mode + 'Btn'; //button to be turned on
-    document.getElementById('penBtn').ariaPressed = false;
-    document.getElementById('pencilBtn').ariaPressed = false;
+    document.getElementById('penBtn').ariaPressed = 'false';
+    document.getElementById('pencilBtn').ariaPressed = 'false';
 
-    document.getElementById(onBtn).ariaPressed = true;
+    document.getElementById(onBtn).ariaPressed = 'true';
 
 }

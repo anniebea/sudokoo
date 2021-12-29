@@ -13,3 +13,5 @@ function deselectAll() {
         gridCells[i].dataset.selected = 'false';
     }
 }
+
+

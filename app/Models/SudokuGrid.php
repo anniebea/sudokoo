@@ -21,13 +21,15 @@ class SudokuGrid extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    //FK relationship
     public function contents() {
         return $this->hasMany('App\Models\SudokuGridContents');
     }
 
-    //FK relationship
     public function rating() {
         return $this->hasMany('App\Models\Rating');
+    }
+
+    public function gridRule() {
+        return $this->hasMany('App\Models\GridRule');
     }
 }

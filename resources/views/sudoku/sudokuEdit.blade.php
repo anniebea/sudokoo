@@ -13,10 +13,31 @@
                 <div class="col-sm-3">
                     <div class="card h-100 text-center" id="ruleCard">
                         <div class="card-header">{{ __('RULES') }}</div>
+                        <input type="hidden" name="rules" id="ruleInput" value="0">
 
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">{{ __('Classic SudokuGrid') }}</li>
-                        </ul>
+                        <table class="table table-bordered">
+                            @foreach($rules as $rule)
+                                @if($rule->name == 'Classic Sudoku')
+                                    <tr>
+                                        <td class="checkmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
+                                        <td>{{ $rule->name }}</td>
+                                    </tr>
+                                @else
+                                    <tr id="Rule{{ $rule->id }}">
+                                        <td class="uncheckmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
+                                        <td>{{ $rule->name }}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            <tr>
+                                <td colspan="2">{{ __('Custom rules(Will not be verified by Sudokoo)') }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <textarea id="customRules" name="customRules"></textarea>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 

@@ -17,6 +17,17 @@ function transformDataAttributes(event) {
         input.value = gridCells[i].dataset.given;
         form.appendChild(input);
     }
+
+    //save which rules were used in the grid
+    // let rules = document.getElementsByClassName('checkmark');
+    // for (let i in rules) {
+    //     let input = document.createElement('input');
+    //     input.type = 'hidden';
+    //     input.name = rules.id;
+    //     input.value = rules.id;
+    //     form.appendChild(input);
+    // }
+
     resubmitSudoku();
 }
 

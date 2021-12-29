@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GridRule;
 use App\Models\Rating;
+use App\Models\Rule;
 use App\Models\SudokuGrid;
 use App\Models\SudokuGridContents;
 use Carbon\Carbon;
@@ -46,7 +48,12 @@ class SudokuController extends Controller
      */
     public function create()
     {
-        return view('sudoku.sudokuEdit', ['user' => Auth::user()]);
+        $rules = Rule::all();
+
+        return view('sudoku.sudokuEdit', [
+            'user' => Auth::user(),
+            'rules' => $rules
+        ]);
     }
 
     /**
@@ -60,14 +67,26 @@ class SudokuController extends Controller
         //only name validation is necessary, as the grid itself was deemed 'correct' pre-submission
         $request->validate([
             'user_id' => ['required', 'exists:users,id'],
-            'title' => ['required', 'max:64']
+            'title' => ['required', 'max:64'],
+            'custom_rules' => ['max:512']
         ]);
 
         $gridID = DB::table('sudoku_grids')->insertGetId([
             'title' => $request->title,
             'user_id' => $request->user_id,
             'created_at' => Carbon::now()->toDateTimeString(),
+            'custom_rules' => $request->customRules,
         ]);
+
+        $ruleIDs = str_split($request->rules);
+        foreach ($ruleIDs as $ruleID) {
+            if($ruleID != '0') {
+                $gridRule = new GridRule();
+                $gridRule->sudoku_grid_id = $gridID;
+                $gridRule->rule_id = $ruleID;
+                $gridRule->save();
+            }
+        }
 
         $requests = $request->except([
             'title',
@@ -75,6 +94,8 @@ class SudokuController extends Controller
             'created_at',
             'updated_at',
             'deleted_at',
+            'rules',
+            'customRules',
             '_token'
         ]);
 
@@ -112,6 +133,14 @@ class SudokuController extends Controller
                 ];
             });
 
+        $rules = Rule::all();
+        $gridRules = GridRule::where('sudoku_grid_id', '=', $grid->id)->get('rule_id');
+        $gridRuleArray = [];
+        for ($i = 0; $i < count($gridRules); $i++) {
+            $gridRuleArray[] = $gridRules[$i]->rule_id;
+            break;
+        }
+
         $ratings = app(RatingController::class)->show($grid->id);
         $difficultyRatings = app(DifficultyRatingController::class)->show($grid);
         $comments = app(CommentController::class)->show($grid);
@@ -120,6 +149,8 @@ class SudokuController extends Controller
             'grid' => $grid,
             'contents' => $contents,
             'user' => Auth::user(),
+            'rules' => $rules,
+            'gridRules' => $gridRuleArray,
             'avgRating' => $ratings[0],
             'userRating' => $ratings[1],
             'avgDifficultyRating' => $difficultyRatings[0],

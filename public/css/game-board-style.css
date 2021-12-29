@@ -63,6 +63,24 @@ Buttons that use Font Awesome
 }
 
 /*---------------------------
+Rule related CSS
+---------------------------*/
+
+.checkmark::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f14a';
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+.uncheckmark::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f14a';
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+/*---------------------------
 Rating related CSS
 ---------------------------*/
 
@@ -169,11 +187,6 @@ Size of Rule, Grid and Control cards
     max-width: 20vw;
 }
 
-/*#gridCard {*/
-/*    min-width: 350px;*/
-/*    max-width: 100vh;*/
-/*}*/
-
 #grid {
     display: block;
     min-width: 350px;
@@ -185,15 +198,8 @@ Size of Rule, Grid and Control cards
 }
 
 .gridCell {
-    min-width: 30px;
-    min-height: 30px;
-
     width: 30px;
     height: 30px;
-
-    max-width:  100vh;
-    max-height: 100vh;
-
     border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
@@ -208,7 +214,7 @@ Displaying givens, pen marks and pencil marks
 /* Has a 'given' */
 .gridCell:not([data-given=''])::after {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: black;
     content: attr(data-given);
 

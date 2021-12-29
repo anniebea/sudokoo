@@ -13,8 +13,11 @@
     <script src="https://kit.fontawesome.com/e83e6d7276.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/misc.js') }}" defer></script>
+    <script src="{{ asset('js/grid-generation.js') }}" defer></script>
     <script src="{{ asset('js/cell-input.js') }}" defer></script>
     <script src="{{ asset('js/user-input-handling.js') }}" defer></script>
+    <script src="{{ asset('js/windoku-handling.js') }}" defer></script>
+    <script src="{{ asset('js/knight-handling.js') }}" defer></script>
     <script src="{{ asset('js/rating-control.js') }}" defer></script>
     <script src="{{ asset('js/comment-upgrade-form-display.js') }}" defer></script>
     <script src="{{ asset('js/navigation.js') }}" defer></script>

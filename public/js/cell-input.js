@@ -3,20 +3,20 @@
  *
  * @param cell
  * @param key
+ * @param mode
  */
-
 function cellInput(cell, key, mode) {
     if (mode == 'editing') {
         if (key === 'Delete') {
             cell.dataset.given = '';
             if (getBox3x3(cell.id) > 0) {
-                classicValidator3x3(cell);
+                validator3x3(cell);
             }
         }
         else if (key === 'Backspace') {
             cell.dataset.given = cell.dataset.given.slice(0,cell.dataset.given.length-1);
             if (getBox3x3(cell.id) > 0) {
-                classicValidator3x3(cell);
+                validator3x3(cell);
             }
         }
         else if (key.length == 1){
@@ -28,7 +28,7 @@ function cellInput(cell, key, mode) {
                     else {
                         cell.dataset.given = key;
                     }
-                    classicValidator3x3(cell);
+                    validator3x3(cell);
                 }
             }
             else {
@@ -44,7 +44,7 @@ function cellInput(cell, key, mode) {
                 if (document.getElementById('penBtn').ariaPressed == 'true') {
                     if (key === 'Backspace' || key === 'Delete') {
                         cell.dataset.penMark = '';
-                        classicValidator3x3(cell);
+                        validator3x3(cell);
                     }
                     else if (key.length == 1 && !isNaN(key) && key != 0) {
                         if (cell.dataset.penMark == key) {
@@ -53,7 +53,7 @@ function cellInput(cell, key, mode) {
                         else {
                             cell.dataset.penMark = key;
                         }
-                        classicValidator3x3(cell);
+                        validator3x3(cell);
                     }
                 }
                 else if (document.getElementById('pencilBtn').ariaPressed == 'true') {

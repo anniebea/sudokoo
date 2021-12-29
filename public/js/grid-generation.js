@@ -29,6 +29,8 @@ function generateEventListeners() {
     window.addEventListener('keyup', function() {
         inputHandler(event.key)
     }, false);
+
+    loadWindoku();
 }
 
 
@@ -73,10 +75,8 @@ function generate3x3(contentArray = []) {
                     }
                 }
             }
-
             generateCell(row,id,given);
         }
     }
-
     generateEventListeners();
 }
