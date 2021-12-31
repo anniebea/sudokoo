@@ -93,6 +93,15 @@
                             <button class="btn btn-outline-primary" id="finishBtn" type="button" onclick="validatePostFinish()"></button>
                             <button class="btn btn-outline-danger" id="restart" type="button"></button>
                         </li>
+
+                        @if(Auth::id() == $grid->user->id)
+                            <li class="list-group-item btn-group">
+                                <a class="btn btn-outline-secondary edit" id="editBtn" type="button"
+                                href="{{ action('App\Http\Controllers\SudokuController@edit', ['id' => $grid->id]) }}"></a>
+                                <a class="btn btn-outline-danger delete" id="deletePuzzle" type="button"
+                                href="{{ action('App\Http\Controllers\SudokuController@destroy', ['id' => $grid->id]) }}"></a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -265,7 +274,7 @@
                                                         </form>
 
                                                         <div class="commentBtns">
-                                                            <span class="editComment" id="editComment{{ $comment->id }}"></span>
+                                                            <span class="edit" id="editComment{{ $comment->id }}"></span>
                                                             <a href="{{ route('comment.destroy', ['id' => $comment->id]) }}" class="delete" id="delete{{ $comment->id }}"></a>
                                                         </div>
                                                     @elseif(Auth::check())

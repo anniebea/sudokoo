@@ -63,6 +63,13 @@ function selectCell(cell) {
     }
 }
 
+//Function for deselecting all cells
+function deselectAll() {
+    for (let i = 0; i < gridCells.length; i++) {
+        gridCells[i].dataset.selected = 'false';
+    }
+}
+
 //Function gets selected cell, returns -1 if no cell is selected
 function getSelectedCell() {
     let gridCells = document.getElementsByClassName('gridCell');

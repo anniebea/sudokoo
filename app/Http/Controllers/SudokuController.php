@@ -31,13 +31,22 @@ class SudokuController extends Controller
     public function index()
     {
         $grids = SudokuGrid::with('user')
+            ->whereNull('deleted_at')
             ->orderByDesc('created_at')
             ->get();
 
+        for ($i = 0; $i < count($grids); $i++) {
+            $ratingArray = app(RatingController::class)->show($grids[$i]->id);
+            $grids[$i]->ratingArray = $ratingArray;
+        }
+
+        for ($i = 0; $i < count($grids); $i++) {
+            $ratingArray = app(DifficultyRatingController::class)->show($grids[$i]);
+            $grids[$i]->difficultyRatingArray = $ratingArray;
+        }
+
         return view('sudoku.sudokuList', [
             'grids' => $grids,
-//            'rating' => $rating,
-//            'difficultyRating' => $difficultyRating
         ]);
     }
 
@@ -50,7 +59,7 @@ class SudokuController extends Controller
     {
         $rules = Rule::all();
 
-        return view('sudoku.sudokuEdit', [
+        return view('sudoku.sudokuCreate', [
             'user' => Auth::user(),
             'rules' => $rules
         ]);
@@ -168,7 +177,34 @@ class SudokuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $grid = SudokuGrid::with('contents')
+            ->where('id', '=', $id)
+            ->first();
+
+        $contents = SudokuGridContents::where('sudoku_grid_id', '=', $grid->id)
+            ->get(['cell_num','cell_content'])
+            ->map(function ($item) {
+                return [
+                    $item->cell_num,
+                    $item->cell_content,
+                ];
+            });
+
+        $rules = Rule::all();
+        $gridRules = GridRule::where('sudoku_grid_id', '=', $grid->id)->get('rule_id');
+        $gridRuleArray = [];
+        for ($i = 0; $i < count($gridRules); $i++) {
+            $gridRuleArray[] = $gridRules[$i]->rule_id;
+            break;
+        }
+
+        return view('sudoku.sudokuEdit', [
+            'grid' => $grid,
+            'contents' => $contents,
+            'user' => Auth::user(),
+            'rules' => $rules,
+            'gridRules' => $gridRuleArray,
+        ]);
     }
 
     /**
@@ -180,7 +216,28 @@ class SudokuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //get all associated grid_rules
+        $gridRules = GridRule::where('sudoku_grid_id', '=', $id);
+
+        //if a rule is not in $request->rules, delete it;
+        $ruleIDs = str_split($request->rules);
+        foreach ($gridRules as $gridRule) {
+            if (!in_array($gridRule->rule_id, $ruleIDs)) {
+                $gridRule->delete();
+            }
+        }
+
+        //if a rule is in $request, but is not stored in DB, add it
+        foreach ($ruleIDs as $ruleID) {
+            if($ruleID != '0') {
+                GridRule::firstOrCreate([
+                    'sudoku_grid_id' => $id,
+                    'rule_id' => $ruleID
+                ]);
+            }
+        }
+
+        return redirect()->route('sudokoo.show', ['id' => $id]);
     }
 
     /**
@@ -191,6 +248,16 @@ class SudokuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Delete all entries from the table "sudoku_grid_contents" with the same grid_id
+        SudokuGridContents::where('sudoku_grid_id', '=', $id)
+            ->update(['deleted_at' => Carbon::now()->toDateTimeString()]);
+
+        //Delete all entries from the table "grid_rules" with the same grid_id.
+        GridRule::where('sudoku_grid_id', '=', $id)->update(['deleted_at' => Carbon::now()->toDateTimeString()]);
+
+        //Delete the table with ID "$id" from the table "sudoku_grids"
+        SudokuGrid::where('id', '=', $id)->update(['deleted_at' => Carbon::now()->toDateTimeString()]);
+
+        return redirect()->route('sudoku.list');
     }
 }

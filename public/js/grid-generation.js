@@ -30,6 +30,14 @@ function generateEventListeners() {
         inputHandler(event.key)
     }, false);
 
+    //Generate event listener that listens for when a user clicks outside the grid card
+    window.addEventListener('click', function () {
+        let clickedElement = event.target;
+        if (!document.getElementById('gridCardBody').contains(clickedElement)) {
+            deselectAll();
+        }
+    });
+
     loadWindoku();
 }
 

@@ -49,8 +49,12 @@
 {{--                                List of published puzzles--}}
                                 <div class="tab-pane" id="puzzles" role="tabpanel" aria-labelledby="puzzles-tab">
                                     <div class="container">
-                                        @if($puzzles == [])
-                                            <p class="bg-danger">Published puzzles</p>
+                                        @if(count($puzzles) == 0)
+                                            <ul class="list-group">
+                                                <div class="list-group-item list-group-item-primary">
+                                                    {{ __('You have not published any puzzles!') }}
+                                                </div>
+                                            </ul>
                                         @else
                                             @foreach($puzzles as $puzzle)
                                                 <div class="card-group">
@@ -62,11 +66,10 @@
                                                             </a>
                                                             <li class="list-group-item">
                                                                 <div>
-                                                                    <p>Uploaded: {{ date( 'd. M, Y', strtotime($puzzle->created_at)) }}</p>
-                                                                    <p>Rating: coming soon</p>
-                                                                    {{--                                            92%--}}
-                                                                    <p>Difficulty rating: coming soon</p>
-                                                                    {{--                                            4/5--}}
+                                                                    <p>{{ __('Uploaded') }}: {{ date( 'd. M, Y', strtotime($puzzle->created_at)) }}</p>
+                                                                    <p>{{ __('Rating') }}: {{ $puzzle->ratingArray[0] }}</p>
+                                                                    <p>{{ __('Difficulty rating') }}:
+                                                                        {{ $puzzle->difficultyRatingArray[0] }}@if($puzzle->difficultyRatingArray[0] != 'N/A')/5 @endif</p>
                                                                 </div>
                                                             </li>
                                                         </ul>

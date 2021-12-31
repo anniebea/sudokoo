@@ -1,4 +1,4 @@
-let commentEditBtns = document.getElementsByClassName('editComment');
+let commentEditBtns = document.getElementsByClassName('edit');
 
 for (let i = 0; i < commentEditBtns.length; i++) {
     let form = document.getElementById('CommentUpdate'+commentEditBtns[i].id.slice(-1));

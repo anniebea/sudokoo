@@ -14,9 +14,9 @@
 {{--                        single sudoku card--}}
                         @if(count($grids) == 0)
                             <ul class="list-group">
-                                <a class="list-group-item list-group-item-primary" href="#">
+                                <div class="list-group-item list-group-item-primary">
                                     {{ __('No puzzles published yet!') }}
-                                </a>
+                                </div>
                             </ul>
                         @else
                             @foreach($grids as $grid)
@@ -30,11 +30,10 @@
                                             <li class="list-group-item">
                                                 <div>
                                                     <p>Author: {{ $grid->user->name }}</p>
-                                                    <p>Uploaded: {{ date( 'd. M, Y', strtotime($grid->created_at)) }}</p>
-                                                    <p>Rating: coming soon</p>
-        {{--                                            92%--}}
-                                                    <p>Difficulty rating: coming soon</p>
-        {{--                                            4/5--}}
+                                                    <p>{{ __('Uploaded') }}: {{ date( 'd. M, Y', strtotime($grid->created_at)) }}</p>
+                                                    <p>{{ __('Rating') }}: {{ $grid->ratingArray[0] }}</p>
+                                                    <p>{{ __('Difficulty rating') }}:
+                                                        {{ $grid->difficultyRatingArray[0] }}@if($grid->difficultyRatingArray[0] != 'N/A')/5 @endif</p>
                                                 </div>
                                             </li>
                                         </ul>

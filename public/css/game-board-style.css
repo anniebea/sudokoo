@@ -1,6 +1,30 @@
 /*---------------------------
 Buttons that use Font Awesome
 ---------------------------*/
+.delete::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f2ed';
+    font-weight: 100;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.edit::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f044';
+    font-weight: 100;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#deletePuzzle::before {
+    color: #e3342f;
+}
+
+#deletePuzzle:hover::before {
+    color: white;
+}
+
 #penBtn::before {
     font-family: 'Font Awesome 5 Free';
     content: '\f304';
@@ -141,21 +165,6 @@ Rating related CSS
 /*-----------------
 Comment related CSS
 -----------------*/
-.delete::before {
-    font-family: 'Font Awesome 5 Free';
-    content: '\f2ed';
-    font-weight: 100;
-    font-size: 1.2rem;
-    color: black;
-}
-
-.editComment::before {
-    font-family: 'Font Awesome 5 Free';
-    content: '\f044';
-    font-weight: 100;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
 
 .report:hover { /* remove underline */
     text-decoration: none;

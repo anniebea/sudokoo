@@ -98,7 +98,7 @@ class DifficultyRatingController extends Controller
                 if ($ratings[$i][0] == $grid->user_id)
                     $authorRating = $ratings[$i][1];
             }
-            $avgRating = number_format($numerator / count($ratings), 2);
+            $avgRating = number_format($numerator / count($ratings), 1);
         }
 
         return [

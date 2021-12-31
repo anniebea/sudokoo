@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\SudokuGrid;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\Traits\Date;
@@ -80,10 +81,19 @@ class UserController extends Controller
     {
         $user = $this->getUser($id);
 
-        $puzzles = DB::table('sudoku_grids')
-            ->where('user_id', '=', $id)
+        $puzzles = SudokuGrid::where('user_id', '=', $id)
             ->orderByDesc('created_at')
             ->get();
+
+        for ($i = 0; $i < count($puzzles); $i++) {
+            $ratingArray = app(RatingController::class)->show($puzzles[$i]->id);
+            $puzzles[$i]->ratingArray = $ratingArray;
+        }
+
+        for ($i = 0; $i < count($puzzles); $i++) {
+            $ratingArray = app(DifficultyRatingController::class)->show($puzzles[$i]);
+            $puzzles[$i]->difficultyRatingArray = $ratingArray;
+        }
 
         return view('profiles.profile', [
             'user' => $user,
