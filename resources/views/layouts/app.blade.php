@@ -22,6 +22,7 @@
     <script src="{{ asset('js/live-validation.js') }}" defer></script>
     <script src="{{ asset('js/final-validation.js') }}"></script>
     <script src="{{ asset('js/sudoku-submit-override.js') }}" defer></script>
+    <script src="{{ asset('js/solve-timer.js') }}" defer></script>
     <script src="{{ asset('js/windoku-handling.js') }}" defer></script>
     <script src="{{ asset('js/knight-handling.js') }}" defer></script>
 

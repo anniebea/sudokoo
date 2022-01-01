@@ -21,6 +21,7 @@ function validatePostFinish() {
 
     if (isCorrect) {
         document.getElementById('finishBtn').disabled = true;
+        stopTimer();
         $('#successModal').modal('show');
     }
     else {

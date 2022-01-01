@@ -45,6 +45,7 @@
                 <div class="card h-100 text-center" id="gridCard">
                     <div class="card-header align-items-end">
                         <p> {{ strtoupper($grid->title) }} by {{ $grid->user->name }}</p>
+                        <div id="timer"> 0:00:00 </div>
                     </div>
 
                     <div class="card-body">
@@ -118,6 +119,7 @@
                         </div>
                         <div class="modal-body">
                             <p class="row justify-content-center"> {{ __('Puzzle completed!') }}</p>
+                            <p class="row justify-content-center"> {{ __('Final time') }}: <span id="finalTime"></span></p>
                             @if(Auth::check())
                                 <form id="RatingForm" method="post"
                                       action="{{ route('rating.store', ['id' => Auth::id()]) }}"
