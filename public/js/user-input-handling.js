@@ -63,14 +63,21 @@ function selectCell(cell) {
     }
 }
 
-//Function for deselecting all cells
+/**
+ * Function for deselecting all cells
+ *
+ */
 function deselectAll() {
     for (let i = 0; i < gridCells.length; i++) {
         gridCells[i].dataset.selected = 'false';
     }
 }
 
-//Function gets selected cell, returns -1 if no cell is selected
+/**
+ * Function gets selected cell, returns -1 if no cell is selected
+ *
+ * @returns {number|Element}
+ */
 function getSelectedCell() {
     let gridCells = document.getElementsByClassName('gridCell');
     for (let i = 0; i < gridCells.length; i++) {
@@ -82,7 +89,7 @@ function getSelectedCell() {
 }
 
 /**
- * Input mode/type selection.
+ * Input mode selection.
  */
 function modeSwitch(mode) {
     let onBtn = mode + 'Btn'; //button to be turned on

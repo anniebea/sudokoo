@@ -1,4 +1,10 @@
-// Generate a cell in div "div" with id "id"
+/**
+ * Generate a cell in div "div" with id "id"
+ *
+ * @param div
+ * @param id
+ * @param given
+ */
 function generateCell(div, id, given) {
     let cell = document.createElement('div');
     cell.id = id;
@@ -42,9 +48,11 @@ function generateEventListeners() {
 }
 
 
-/*
-* Generate a 3x3 grid of sudoku, with outline ring of cells for Little Killer SudokuGrid clues
-* */
+/**
+ * Generate a 3x3 grid of sudoku, with outline ring of cells for other SudokuGrid clues
+ *
+ * @param contentArray
+ */
 function generate3x3(contentArray = []) {
     let grid = document.getElementById("grid");
     let id;
