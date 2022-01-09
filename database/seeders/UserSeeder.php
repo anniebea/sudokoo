@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
                 'email' => 'lietotajs@sudokoo.lv',
                 'date_of_birth' => Carbon::create(2000,1,1),
                 'password' => bcrypt('Sudokoo123!'),
-                'role_id' => DB::table('roles')->where('name','Pamatlietotajs')->value('id')
+                'role_id' => '1'
             ),
 
             array(
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
                 'email' => 'administrators@sudokoo.lv',
                 'date_of_birth' => Carbon::create(2000,1,1),
                 'password' => bcrypt('Sudokoo123!'),
-                'role_id' => DB::table('roles')->where('name','Administrators')->value('id')
+                'role_id' =>  '2'
             ),
 
             array(
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
                 'email' => 'blokets@sudokoo.lv',
                 'date_of_birth' => Carbon::create(2000,1,1),
                 'password' => bcrypt('Sudokoo123!'),
-                'role_id' => DB::table('roles')->where('name','Pamatlietotajs')->value('id')
+                'role_id' => '1'
             ),
         ));
 
