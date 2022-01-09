@@ -58,7 +58,7 @@
                             @endif
                         @else
 {{--                            Buttons available only to Administrators--}}
-                            @if(Auth::user()->role->name == 'Administrators')
+                            @if(Auth::user()->role->id == '2')
                                 <a class="nav-link" href="{{ route('report.index') }}">
                                     {{ __('Reported comments') }}
                                 </a>
