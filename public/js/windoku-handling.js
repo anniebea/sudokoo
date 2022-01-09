@@ -30,6 +30,9 @@ document.getElementById('WindokuCheck').addEventListener('click', function () {
     }
 });
 
+/**
+ * Color in all Windoku cells.
+ */
 function addWindoku() {
     for (let i in windokuCells) {
         document.getElementById(windokuCells[i]).style.backgroundColor = 'rgba(0,0,255,0.2)';
@@ -37,6 +40,9 @@ function addWindoku() {
     }
 }
 
+/**
+ * Remove coloring and run validator to remove wrongfully marked errors.
+ */
 function removeWindoku() {
     for (let i in windokuCells) {
         document.getElementById(windokuCells[i]).style.backgroundColor = '';
@@ -55,8 +61,11 @@ function windokuValidation() {
     return hasError1 && hasError2 && hasError3 && hasError4;
 }
 
+/**
+ * If the grid contains Windoku, then color it in.
+ */
 function loadWindoku() {
-    if(document.getElementById('WindokuCheckmark').className === 'checkmark') {
+    if(document.getElementById('WindokuCheck').className == 'checkmark') {
         addWindoku();
     }
 }

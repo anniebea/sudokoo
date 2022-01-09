@@ -19,57 +19,43 @@ Auth::routes();
 //returns main view of personal web page
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-//Redirects 'sudokoo/' to 'sudokoo/sudokoo/list/sudoku' ('sudokoo' is the vhost used during development)
 Route::redirect('/','sudokoo/list/sudoku');
 
-//SudokuGrid routes
-Route::resource('sudokoo','App\Http\Controllers\SudokuController')->except('index','show','create','store','edit','update','destroy');
-Route::get('/sudokoo/list/sudoku', 'App\Http\Controllers\SudokuController@index')->name('sudoku.list');
-Route::get('/sudokoo/sudoku/{id}','App\Http\Controllers\SudokuController@show')->name('sudoku.show');
-Route::get('/sudokoo/create/sudoku','App\Http\Controllers\SudokuController@create')->name('sudoku.create')->middleware(['auth','not.blocked']);
-Route::post('/sudokoo/create/sudoku', 'App\Http\Controllers\SudokuController@store')->name('sudoku.store')->middleware('auth');
-Route::get('/sudokoo/edit/sudoku/{id}','App\Http\Controllers\SudokuController@edit')->name('sudoku.edit')->middleware(['auth','not.blocked']);
-Route::post('/sudokoo/edit/sudoku/{id}','App\Http\Controllers\SudokuController@update')->middleware('auth', 'not.blocked');
-Route::get('/sudokoo/destroy/sudoku/{id}','App\Http\Controllers\SudokuController@destroy')->name('sudoku.destroy')->middleware(['auth','not.blocked']);
-//Route::post('/sudokoo/search/sudoku', 'App\Http\Controllers\SudokuController@postSearch')->name('sudoku.search')->middleware(['auth','not.blocked']);
+Route::group(['middleware' => 'not.blocked'], function() {
+    //SudokuGrid routes
+    Route::get('/sudokoo/list/sudoku', 'App\Http\Controllers\SudokuController@index')->name('sudoku.list');
+    Route::get('/sudokoo/sudoku/{id}','App\Http\Controllers\SudokuController@show')->name('sudoku.show');
+    Route::get('/sudokoo/create/sudoku','App\Http\Controllers\SudokuController@create')->name('sudoku.create')->middleware(['auth']);
+    Route::post('/sudokoo/create/sudoku', 'App\Http\Controllers\SudokuController@store')->name('sudoku.store')->middleware('auth');
+    Route::get('/sudokoo/edit/sudoku/{id}','App\Http\Controllers\SudokuController@edit')->name('sudoku.edit')->middleware(['auth']);
+    Route::post('/sudokoo/edit/sudoku/{id}','App\Http\Controllers\SudokuController@update')->name('sudoku.update')->middleware('auth');
+    Route::get('/sudokoo/destroy/sudoku/{id}','App\Http\Controllers\SudokuController@destroy')->name('sudoku.destroy')->middleware(['auth']);
 
 //Rating routes
-Route::get('/sudokoo/create/rating/{id}', 'App\Http\Controllers\RatingController@create')->name('rating.create')->middleware(['auth','not.blocked']);
-Route::post('/sudokoo/create/rating/{id}', 'App\Http\Controllers\RatingController@store')->name('rating.store')->middleware(['auth','not.blocked']);
-Route::get('/sudokoo/create/difficultyRating/{id}', 'App\Http\Controllers\DifficultyRatingController@create')->name('difficultyRating.create')->middleware(['auth','not.blocked']);
-Route::post('/sudokoo/create/difficultyRating/{id}', 'App\Http\Controllers\DifficultyRatingController@store')->name('difficultyRating.store')->middleware(['auth','not.blocked']);
+   Route::post('/sudokoo/create/rating/{id}', 'App\Http\Controllers\RatingController@store')->name('rating.store')->middleware(['auth']);
+   Route::post('/sudokoo/edit/rating/{id}','App\Http\Controllers\RatingController@update')->name('rating.update')->middleware(['auth']);
 
 //Comment routes
-Route::resource('comment','App\Http\Controllers\CommentController')->except('show','create','store','edit','update','destroy');
-Route::get('/sudokoo/create/comment/{id}', 'App\Http\Controllers\CommentController@create')->name('comment.create')->middleware(['auth','not.blocked']);
-Route::post('/sudokoo/create/comment/{id}', 'App\Http\Controllers\CommentController@store')->name('comment.store')->middleware(['auth','not.blocked']);
-Route::get('/sudokoo/edit/comment/{id}','App\Http\Controllers\CommentController@edit')->name('comment.edit')->middleware(['auth','not.blocked']);
-Route::post('/sudokoo/edit/comment/{id}','App\Http\Controllers\CommentController@update')->name('comment.update')->middleware(['auth','not.blocked']);
-Route::get('/sudokoo/destroy/comment/{id}','App\Http\Controllers\CommentController@destroy')->name('comment.destroy')->middleware(['auth','not.blocked']);
-Route::get('/sudokoo/report/comment/{id}','App\Http\Controllers\CommentController@report')->name('comment.report')->middleware(['auth','not.blocked']);
-Route::get('/sudokoo/list/reported', 'App\Http\Controllers\CommentController@reportIndex')->name('report.index')->middleware(['auth','not.blocked','admin']);
-Route::get('/sudokoo/report/remove/{id}', 'App\Http\Controllers\CommentController@removeReport')->name('report.remove')->middleware(['auth','not.blocked','admin']);
+    Route::post('/sudokoo/create/comment/{id}', 'App\Http\Controllers\CommentController@store')->name('comment.store')->middleware(['auth']);
+    Route::post('/sudokoo/edit/comment/{id}','App\Http\Controllers\CommentController@update')->name('comment.update')->middleware(['auth']);
+    Route::get('/sudokoo/destroy/comment/{id}','App\Http\Controllers\CommentController@destroy')->name('comment.destroy')->middleware(['auth']);
+    Route::get('/sudokoo/report/comment/{id}','App\Http\Controllers\CommentController@report')->name('comment.report')->middleware(['auth']);
+    Route::get('/sudokoo/list/reported', 'App\Http\Controllers\CommentController@reportIndex')->name('report.index')->middleware(['auth','admin']);
+    Route::get('/sudokoo/report/remove/{id}', 'App\Http\Controllers\CommentController@removeReport')->name('report.remove')->middleware(['auth','admin']);
 
 //User routes
-Route::resource('users','App\Http\Controllers\UserController')->except('index','show','create','store','edit','update','destroy');
-Route::get('/sudokoo/list/user', 'App\Http\Controllers\UserController@index')->name('user.list')->middleware(['auth','not.blocked','admin']);
-Route::get('/sudokoo/user/{id}','App\Http\Controllers\UserController@show')->name('user.show')->middleware(['auth','not.blocked']);
-//Route::get('/sudokoo/create/user', 'App\Http\Controllers\UserController@create')->name('user.create');
-Route::post('/sudokoo/create/user','App\Http\Controllers\UserController@store')->middleware(['auth','not.blocked']);
-Route::get('/sudokoo/edit/user/{id}','App\Http\Controllers\UserController@edit')->name('user.edit')->middleware(['auth','not.blocked','auth.user']);
-Route::patch('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@update')->name('user.update')->middleware(['auth','not.blocked','auth.user']);
-Route::get('/sudokoo/edit/userPass/{id}','App\Http\Controllers\UserController@editPassword')->name('password.edit')->middleware(['auth','not.blocked','auth.user']);
-Route::patch('sudokoo/edit/userPass/{id}', 'App\Http\Controllers\UserController@updatePassword')->name('password.change')->middleware(['auth','not.blocked','auth.user']);
-//Route::get('/sudokoo/destroy/user/{id}', 'App\Http\Controllers\UserController@destroy')->name('user.destroy')->middleware(['auth','not.blocked','auth.user']);
-//Route::post('/sudokoo/search/user', 'App\Http\Controllers\UserController@postSearch')->name('user.search')->middleware(['auth','not.blocked']);
-Route::get('/sudokoo/role/user/{id}','App\Http\Controllers\UserController@editRole')->name('role.edit')->middleware(['auth','not.blocked', 'admin']);
-Route::post('/sudokoo/role/user', 'App\Http\Controllers\UserController@updateRole')->name('role.update')->middleware(['auth','not.blocked', 'admin']);
-
+    Route::get('/sudokoo/list/user', 'App\Http\Controllers\UserController@index')->name('user.list')->middleware(['auth','admin']);
+    Route::get('/sudokoo/user/{id}','App\Http\Controllers\UserController@show')->name('user.show')->middleware(['auth','auth.user']);
+    Route::get('/sudokoo/edit/user/{id}','App\Http\Controllers\UserController@edit')->name('user.edit')->middleware(['auth','auth.user']);
+    Route::patch('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@update')->name('user.update')->middleware(['auth','auth.user']);
+    Route::get('/sudokoo/edit/userPass/{id}','App\Http\Controllers\UserController@editPassword')->name('password.edit')->middleware(['auth','auth.user']);
+    Route::patch('sudokoo/edit/userPass/{id}', 'App\Http\Controllers\UserController@updatePassword')->name('password.change')->middleware(['auth','auth.user']);
+    Route::get('/sudokoo/role/user/{id}','App\Http\Controllers\UserController@editRole')->name('role.edit')->middleware(['auth','admin']);
+    Route::post('/sudokoo/role/user', 'App\Http\Controllers\UserController@updateRole')->name('role.update')->middleware(['auth','admin']);
 
 //Blocking routes
-Route::resource('blocking', 'App\Http\Controllers\BlockingController')->except('create','store');
-Route::get('/sudokoo/create/blocking/{id}', 'App\Http\Controllers\BlockingController@create')->name('blocking.create')->middleware(['auth','not.blocked', 'admin']);
-Route::post('/sudokoo/create/blocking','App\Http\Controllers\BlockingController@store')->name('blocking.store')->middleware(['auth','not.blocked', 'admin']);
+    Route::get('/sudokoo/create/blocking/{id}', 'App\Http\Controllers\BlockingController@create')->name('blocking.create')->middleware(['auth', 'admin']);
+    Route::post('/sudokoo/create/blocking','App\Http\Controllers\BlockingController@store')->name('blocking.store')->middleware(['auth','admin']);
+});
 
 Route::get('/sudokoo/blocked','App\Http\Controllers\BlockingController@showBlocked')->name('blocking.showScreen')->middleware(['auth']);

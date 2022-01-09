@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class EnsureAuthUser
 {
     /**
-     * Handle an incoming request.
+     * Ensure that the requested id matches the active user.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

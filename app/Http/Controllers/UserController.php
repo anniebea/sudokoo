@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -23,52 +24,18 @@ class UserController extends Controller
     {
 //        Users - users who have never been blocked
         $users = User::with('role')->whereNull('is_blocked')->get();
-//        Warned - users wh have been temporarily blocked before
-        $warned = User::with('role')->where('is_blocked', '=', '0')->get();
 
-//        Blocked - users who are currently temporarily blocked
+//        Permanent - users who are blocked
         $blocked = DB::table('users')
             ->join('blockings','users.id','=', 'blockings.user_id')
             ->join('roles', 'users.role_id','=','roles.id')
-            ->where('date_to', '>', date('Y-m-d'))
-            ->select('users.*','roles.name as role', 'blockings.date_from', 'blockings.date_to')
-            ->get();
-
-//        Permanent - users who are blocked permanently
-        $permanent = DB::table('users')
-            ->join('blockings','users.id','=', 'blockings.user_id')
-            ->join('roles', 'users.role_id','=','roles.id')
-            ->whereNull('blockings.date_to')
             ->select('users.*','roles.name as role', 'blockings.date_from')
             ->get();
 
         return view('profiles.profileList', [
             'users' => $users,
-            'warned' => $warned,
-            'blockedUsers' => $blocked,
-            'permanentlyBlocked' => $permanent,
+            'blocked' => $blocked,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -82,6 +49,7 @@ class UserController extends Controller
         $user = $this->getUser($id);
 
         $puzzles = SudokuGrid::where('user_id', '=', $id)
+            ->whereNull('deleted_at')
             ->orderByDesc('created_at')
             ->get();
 
@@ -125,28 +93,16 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['sometimes', 'string', 'max:32', 'unique:users,name,' . $id],
-            'email' => ['sometimes', 'string', 'email', 'max:64', 'unique:users,email,' . $id],
+            'email' => ['sometimes', 'string', 'email', 'max:256', 'unique:users,email,' . $id],
         ]);
 
-        DB::table('users')
-            ->where('id', $id)
+        User::where('id', '=', $id)
             ->update([
                 'name' => $request->name,
                 'email' => $request->email,
             ]);
 
         return redirect()->route('user.show', ['id' => $id]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
 
@@ -186,8 +142,7 @@ class UserController extends Controller
             'role' => ['required', 'numeric', 'exists:roles,id'],
         ]);
 
-        DB::table('users')
-            ->where('id', $request->user_id)
+        User::where('id', '=', $request->user_id)
             ->update([
                 'role_id' => $request->role,
             ]);
@@ -219,17 +174,15 @@ class UserController extends Controller
     {
         $request->validate([
             'oldPassword' => ['required', 'string', 'password'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'confirmed', 'max:32', Password::min(8)->mixedCase()->numbers()->symbols()],
         ]);
 
-        DB::table('users')
-            ->where('id', $id)
+        User::where('id', $id)
             ->update([
                 'name' => Auth::user()->name,
                 'email' => Auth::user()->email,
                 'password' => Hash::make($request['password']),
             ]);
-        echo(Auth::user()->name . '--' . Auth::user()->email);
 
         return redirect()->route('user.show', ['id' => $id]);
     }

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class EnsureAdmin
 {
     /**
-     * Handle an incoming request.
+     * Ensure that active user is an administrator.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

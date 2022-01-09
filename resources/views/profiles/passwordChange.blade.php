@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header"><b>{{ $user->name }}</b> | {{ __('Change passrowd') }}</div>
+                    <div class="card-header"><b>{{ $user->name }}</b> | {{ __('Change password') }}</div>
                     <form class="card-body" method="post"
                           action="{{ route('password.change', ['id' => $user->id]) }}"
                     >

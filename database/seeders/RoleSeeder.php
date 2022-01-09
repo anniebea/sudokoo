@@ -19,12 +19,12 @@ class RoleSeeder extends Seeder
 
         DB::table('roles')->insert(array(
             array(
-                'name' => 'Pamatlietotajs',
+                'name' => 'BaseUser',
                 'description' => 'Base user of the system, no special permissions added.'
             ),
 
             array(
-                'name' => 'Administrators',
+                'name' => 'Admin',
                 'description' => 'System administrator, has access to user accounts, the ability to change user roles, block users from the system, moderate comments.'
             ),
 

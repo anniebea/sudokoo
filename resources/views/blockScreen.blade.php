@@ -2,13 +2,9 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body bg-danger">
-                        <h1>{{ __('YOU\'VE BEEN BLOCKED') }}</h1>
-                    </div>
-                </div>
+        <div class="card">
+            <div class="card-body bg-danger row justify-content-center">
+                <h1>{{ __('YOU\'VE BEEN BLOCKED') }}</h1>
             </div>
         </div>
     </div>

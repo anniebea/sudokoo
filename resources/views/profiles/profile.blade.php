@@ -52,7 +52,7 @@
                                         @if(count($puzzles) == 0)
                                             <ul class="list-group">
                                                 <div class="list-group-item list-group-item-primary">
-                                                    {{ __('You have not published any puzzles!') }}
+                                                    {{ __('No puzzles published!') }}
                                                 </div>
                                             </ul>
                                         @else

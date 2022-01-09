@@ -9,7 +9,10 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon; //Carbon is used to validate user's age
+use Carbon\Carbon;
+use Illuminate\Validation\Rules\Password;
+
+//Carbon is used to validate user's age
 
 class RegisterController extends Controller
 {
@@ -52,10 +55,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:32', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:256', 'unique:users'],
             'dob' => ['required', 'date', 'before_or_equal:' . Carbon::now()->subYears(13)->toDateString()],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'confirmed', 'max:32', Password::min(8)->mixedCase()->numbers()->symbols()],
         ]);
     }
 

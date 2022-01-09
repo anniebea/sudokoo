@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class EnsureNotBlocked
 {
     /**
-     * Handle an incoming request.
+     * Ensure that the active user is not blocked.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -17,7 +17,7 @@ class EnsureNotBlocked
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->is_blocked == 1)
+        if(Auth::check() && Auth::user()->is_blocked == 1)
         {
             return redirect()->route('blocking.showScreen');
         }

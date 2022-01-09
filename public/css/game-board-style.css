@@ -188,13 +188,8 @@ Comment related CSS
 }
 
 /*----------------------------------
-Size of Rule, Grid and Control cards
+Size of Grid elements
 ----------------------------------*/
-#ruleCard, #controlCard {
-    /*width: 15vw;*/
-    min-width: 50px;
-    max-width: 20vw;
-}
 
 #grid {
     display: block;
@@ -203,7 +198,7 @@ Size of Rule, Grid and Control cards
 
 /* Ensure all row's cells are displayed in one line */
 #grid > .row {
-    min-width: 340px;
+    width: 330px;
 }
 
 .gridCell {
@@ -314,4 +309,9 @@ Cell borders
 #cell0601,#cell0602,#cell0603,#cell0604,#cell0605,#cell0606,#cell0607,#cell0608,#cell0609,
 #cell0901,#cell0902,#cell0903,#cell0904,#cell0905,#cell0906,#cell0907,#cell0908,#cell0909 {
     border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+/*MISC*/
+.content-row {
+    margin-bottom: 1.5rem;
 }

@@ -8,11 +8,11 @@ function validatePostFinish() {
     for (let x = 1; x <= 9; x++) {
         for (let y = 1; y <= 9; y++) {
             cellID = 'cell0' + x + '0' + y;
-            if (checkRowsAndColumns() && checkBox(document.getElementById(cellID))) {
+            if (document.getElementById(cellID).dataset.hasError == 'true') {
                 isCorrect = false;
             }
-            if (document.getElementById(cellID).dataset.given === '') {
-                if (document.getElementById(cellID).dataset.penMark === '') {
+            if (document.getElementById(cellID).dataset.given == '') {
+                if (document.getElementById(cellID).dataset.penMark == '') {
                     isCorrect = false;
                 }
             }

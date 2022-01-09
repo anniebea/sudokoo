@@ -5,8 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h3>Sudoku list</h3>
+                    <div class="card-header d-flex justify-content-between align-content-center">
+                        <h4>Sudoku list</h4>
                         <a href="{{ url('/sudokoo/create/sudoku') }}" class="btn btn-primary">Create Sudoku</a>
                     </div>
 

@@ -3,31 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Rules\Author;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -66,17 +47,6 @@ class CommentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -86,7 +56,7 @@ class CommentController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'user' => ['required', 'exists:users,id'],
+            'user' => ['required', 'exists:users,id', new Author],
             'grid' => ['required', 'exists:sudoku_grids,id'],
             'commentUpdate' => ['required',  'string', 'max:512']
         ]);
@@ -107,6 +77,11 @@ class CommentController extends Controller
     public function destroy($id)
     {
         $comment = Comment::find($id);
+        $request = new Request(['id' => $comment->user_id]);
+        $request->validate([
+            'id' => ['exists:users,id', new Author]
+        ]);
+
         $comment->deleted_at = Carbon::now()->toDateTimeString();
         $comment->save();
 
@@ -135,8 +110,10 @@ class CommentController extends Controller
      */
     public function removeReport($id) {
         $comment = Comment::find($id);
-        $comment->is_reviewed = '1';
-        $comment->save();
+        if($comment->is_reviewed == '0') {
+            $comment->is_reviewed = '1';
+            $comment->save();
+        }
 
         return redirect()->route('report.index');
     }

@@ -1,53 +1,33 @@
 @extends('layouts.app')
 
+@section('additionalHead')
+    <script src="{{ asset('js/grid-generation.js') }}" defer></script>
+    <script src="{{ asset('js/cell-input.js') }}" defer></script>
+    <script src="{{ asset('js/user-input-handling.js') }}" defer></script>
+    <script src="{{ asset('js/navigation.js') }}" defer></script>
+    <script src="{{ asset('js/live-validation.js') }}" defer></script>
+    <script src="{{ asset('js/final-validation.js') }}"></script>
+    <script src="{{ asset('js/sudoku-submit-override.js') }}" defer></script>
+    <script src="{{ asset('js/windoku-handling.js') }}" defer></script>
+    <script src="{{ asset('js/knight-handling.js') }}" defer></script>
+@endsection
+
 @section('content')
     <div class="container">
         {{--            Game board--}}
         <form method="POST" id="sudokuForm"
-              action="{{ route('sudoku.store', ['user_id' => $user->id]) }}"
+              action="{{ route('sudoku.update', ['id' => $grid->id]) }}"
         >
             @csrf
 
             <div class="row">
-                {{--            Rules--}}
-                <div class="col-sm-3">
-                    <div class="card h-100 text-center" id="ruleCard">
-                        <div class="card-header">{{ __('RULES') }}</div>
-                        <input type="hidden" name="rules" id="ruleInput" value="0">
-
-                        <table class="table table-bordered">
-                            @foreach($rules as $rule)
-                                @if($rule->name == 'Classic Sudoku')
-                                    <tr>
-                                        <td class="checkmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
-                                        <td>{{ $rule->name }}</td>
-                                    </tr>
-                                @else
-                                    <tr id="Rule{{ $rule->id }}">
-                                        <td class="uncheckmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
-                                        <td>{{ $rule->name }}</td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            <tr>
-                                <td colspan="2">{{ __('Custom rules(Will not be verified by Sudokoo)') }}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <textarea id="customRules" name="customRules">{{ $grid->custom_rules }}</textarea>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
                 {{--            Grid--}}
-                <div class="col-sm-6">
+                <div class="col-lg-6 order-lg-2">
                     <div class="card text-center" id="gridCard">
                         <div class="card-header">
                             <div class="form-group row justify-content-center">
                                 <div class="col-md-6">
-                                    <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" required value="Sudoku" autocomplete="Sudoku" autofocus>
+                                    <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" required value="{{ $grid->title }}" autocomplete="Sudoku" autofocus>
 
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -69,8 +49,8 @@
                 </div>
 
                 {{--            Controls--}}
-                <div class="col-sm-3">
-                    <div class="card text-center" id="controlCard">
+                <div class="col-lg-3 order-lg-3">
+                    <div class="card text-center mx-auto" id="controlCard">
                         <div class="card-header">{{ __('CONTROLS') }}</div>
 
                         <ul class="list-group list-group-flush">
@@ -101,6 +81,45 @@
                                 <button class="btn btn-outline-primary" id="submitBtn" type="submit"></button>
                             </li>
                         </ul>
+                    </div>
+                </div>
+
+                {{--            Rules--}}
+                <div class="col-lg-3 order-lg-1">
+                    <div class="card h-100 text-center" id="ruleCard">
+                        <div class="card-header">{{ __('RULES') }}</div>
+                        <input type="hidden" name="rules" id="ruleInput" value="0">
+
+                        <table class="table table-bordered">
+                            @foreach($rules as $rule)
+                                @if($rule->name == 'Classic Sudoku')
+                                    <tr>
+                                        <td class="checkmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
+                                        <td>{{ $rule->name }}</td>
+                                    </tr>
+                                @else
+                                    @if(in_array($rule->id, $gridRules))
+                                        <tr id="Rule{{ $rule->id }}">
+                                            <td class="checkmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
+                                            <td>{{ $rule->name }}</td>
+                                        </tr>
+                                    @else
+                                        <tr id="Rule{{ $rule->id }}">
+                                            <td class="uncheckmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
+                                            <td>{{ $rule->name }}</td>
+                                        </tr>
+                                    @endif
+                                @endif
+                            @endforeach
+                            <tr>
+                                <td colspan="2">{{ __('Custom rules(Will not be verified by Sudokoo)') }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <textarea id="customRules" name="customRules">{{ $grid->custom_rules }}</textarea>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

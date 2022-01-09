@@ -3,9 +3,9 @@
  * 1) override form submission and
  * 2) ensure storing of data in data attributes (by creating hidden input fields)
  */
-document.getElementById('sudokuForm').addEventListener('submit', transformDataAttributes);
+document.getElementById('sudokuForm').addEventListener('submit', preventSubmission);
 
-function transformDataAttributes(event) {
+function preventSubmission(event) {
     event.preventDefault(); //prevent form submission
 
     //create new inputs for data attribute values
@@ -18,20 +18,10 @@ function transformDataAttributes(event) {
         form.appendChild(input);
     }
 
-    //save which rules were used in the grid
-    // let rules = document.getElementsByClassName('checkmark');
-    // for (let i in rules) {
-    //     let input = document.createElement('input');
-    //     input.type = 'hidden';
-    //     input.name = rules.id;
-    //     input.value = rules.id;
-    //     form.appendChild(input);
-    // }
-
     resubmitSudoku();
 }
 
 function resubmitSudoku() {
-    document.getElementById('sudokuForm').removeEventListener('submit', transformDataAttributes);
+    document.getElementById('sudokuForm').removeEventListener('submit', preventSubmission);
     document.getElementById('sudokuForm').submit();
 }

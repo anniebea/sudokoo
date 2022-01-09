@@ -310,7 +310,6 @@ function markAllCorrect() {
  */
 function validator3x3(cell) {
     markAllCorrect();
-    checkRowsAndColumns();
     for(let i=1; i<=9; i++) {
         checkBox(getBoxCells3x3(i));
     }
