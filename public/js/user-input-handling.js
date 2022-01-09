@@ -78,7 +78,7 @@ function getSelectedCell() {
             return gridCells[i];
         }
     }
-    return 'cell-1';
+    return -1;
 }
 
 /**
