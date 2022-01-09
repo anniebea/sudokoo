@@ -75,7 +75,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'date_of_birth' => $data['dob'],
             'password' => Hash::make($data['password']),
-            'role_id' => DB::table('roles')->where('name','Pamatlietotajs')->value('id'),
+            'role_id' => '1',
         ]);
     }
 }
