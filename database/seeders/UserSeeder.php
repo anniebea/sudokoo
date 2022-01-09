@@ -36,14 +36,6 @@ class UserSeeder extends Seeder
             ),
 
             array(
-                'name' => 'Verificets',
-                'email' => 'verificets@sudokoo.lv',
-                'date_of_birth' => Carbon::create(2000,1,1),
-                'password' => bcrypt('Sudokoo123!'),
-                'role_id' => DB::table('roles')->where('name','Pamatlietotajs')->value('id')
-            ),
-
-            array(
                 'name' => 'Blokets',
                 'email' => 'blokets@sudokoo.lv',
                 'date_of_birth' => Carbon::create(2000,1,1),

@@ -32,13 +32,11 @@ class BlockingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'date_to' => ['nullable', 'date', 'after_or_equal:' . Carbon::now()->toDateString()],
             'user_id' => ['required', 'exists:users,id'],
         ]);
 
         DB::table('blockings')
             ->insert([
-                'date_to' => $request->date_to,
                 'date_from' => Carbon::now()->toDateString(),
                 'user_id' => $request->user_id,
                 'created_at' => Carbon::now()->toDateTimeString(),

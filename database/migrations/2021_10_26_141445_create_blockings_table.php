@@ -16,7 +16,6 @@ class CreateBlockingsTable extends Migration
         Schema::create('blockings', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date_from');
-            $table->dateTime('date_to')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
