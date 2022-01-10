@@ -118,14 +118,33 @@ function getBoxCells3x3(box) {
     }
 }
 
+
+/**
+ * Return the number part of a cell's ID.
+ *
+ * @param cellID
+ * @returns {*}
+ */
 function getID(cellID) {
     return cellID.slice(4);
 }
 
+/**
+ * Return the row number of a cell.
+ *
+ * @param cellID
+ * @returns {*}
+ */
 function getRow(cellID) {
     return getID(cellID).slice(0,2);
 }
 
+/**
+ * Return the column number of a cell.
+ *
+ * @param cellID
+ * @returns {*}
+ */
 function getColumn(cellID) {
     return getID(cellID).slice(2,4);
 }
@@ -240,8 +259,6 @@ function checkRowsAndColumns() {
  * @param boxCells
  */
 function checkBox(boxCells) {
-    // let box = getBox3x3(cell.id);
-    // let boxCells = getBoxCells3x3(box);
     let currentCellID = '';
     let compareCellID = '';
     let currentCell, compareCell;
@@ -297,6 +314,9 @@ function checkBox(boxCells) {
     return hasError;
 }
 
+/**
+ * Mar all cells as correct in preparation for re-marking of incorrect cells.
+ */
 function markAllCorrect() {
     for (let i = 0; i < gridCells.length; i++) {
         gridCells[i].dataset.hasError = 'false';
@@ -304,7 +324,7 @@ function markAllCorrect() {
 }
 
 /**
- * Run all necessary checks for Sudoku rules.
+ * Run all necessary checks for all Sudoku rules implemented in the system.
  *
  * @param cell
  */

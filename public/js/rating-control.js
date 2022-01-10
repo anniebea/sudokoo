@@ -1,3 +1,7 @@
+/**
+ * Event listeners that ensure correct display of five star rating input.
+ */
+
 document.getElementById('star1').addEventListener('click', function() {
     document.getElementById('star1').dataset.selected = 'true';
     document.getElementById('star2').dataset.selected = 'false';
@@ -48,7 +52,9 @@ document.getElementById('star5').addEventListener('click', function() {
     document.getElementById('starValue').value = '5';
 }, false);
 
-
+/**
+ * Event listeners that ensure correct like/dislike display.
+ */
 
 document.getElementById('like').addEventListener('click', function() {
     document.getElementById('like').dataset.selected = 'true';

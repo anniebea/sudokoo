@@ -25,7 +25,7 @@ class UserController extends Controller
 //        Users - users who have never been blocked
         $users = User::with('role')->whereNull('is_blocked')->get();
 
-//        Permanent - users who are blocked
+//        Blocked - users who are blocked
         $blocked = DB::table('users')
             ->join('blockings','users.id','=', 'blockings.user_id')
             ->join('roles', 'users.role_id','=','roles.id')

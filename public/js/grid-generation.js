@@ -18,7 +18,7 @@ function generateCell(div, id, given) {
     div.appendChild(cell);
 }
 
-/*
+/**
 * Generate event listeners for all cells, listens to clicks on cells
 */
 function generateEventListeners() {

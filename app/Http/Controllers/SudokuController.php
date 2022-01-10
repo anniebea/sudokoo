@@ -266,7 +266,7 @@ class SudokuController extends Controller
 
         SudokuGridContents::where('sudoku_grid_id', '=', $id)->delete();
 
-        //if a rule is not in $request's contents, delete it
+        //get only those cells which have values stored
         $notNullValues = array_filter($requests, function($arr) {
             return $arr != '';
         });

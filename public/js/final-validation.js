@@ -1,5 +1,5 @@
 /**
- * Validate grid one last time to
+ * Validate grid one last time to ensure no mistakes have been missed.
  */
 function validatePostFinish() {
     let isCorrect = true;

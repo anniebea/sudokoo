@@ -1,3 +1,6 @@
+/**
+ * Ensure functionality for custom checkmark in editing mode.
+ */
 document.getElementById('ChessKnightCheck').addEventListener('click', function () {
     if(document.getElementById('ChessKnightCheck').className === 'checkmark') {
         document.getElementById('ChessKnightCheck').className = 'uncheckmark';
@@ -21,6 +24,11 @@ document.getElementById('ChessKnightCheck').addEventListener('click', function (
     }
 });
 
+/**
+ * Get up to 8 potential cells that must not contain duplicates to cell with ID 'cellID'.
+ * @param cellID
+ * @returns {*[]}
+ */
 function getKnightBuddies(cellID) {
     let resultArray = [];
     let cellRow = getRow(cellID);
@@ -77,6 +85,12 @@ function getKnightBuddies(cellID) {
     return resultArray;
 }
 
+/**
+ * Validate knight rules.
+ *
+ * @param cell
+ * @returns {boolean}
+ */
 function knightValidation(cell) {
     let hasError = false;
 

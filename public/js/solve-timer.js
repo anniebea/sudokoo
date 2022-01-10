@@ -1,6 +1,9 @@
 const timerTimeout = setInterval(addSecond, 1000);
 let totalTime = 0;
 
+/**
+ * Function to add a second to displayed timer, with logic to convert to minutes and hours.
+ */
 function addSecond() {
     totalTime++;
     let hours = Math.floor(totalTime/3600);

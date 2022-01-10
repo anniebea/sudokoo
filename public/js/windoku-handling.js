@@ -11,6 +11,9 @@ const box2 = ['cell0206','cell0207','cell0208','cell0306','cell0307','cell0308',
 const box3 = ['cell0602','cell0603','cell0604','cell0702','cell0703','cell0704','cell0802','cell0803','cell0804'];
 const box4 = ['cell0606','cell0607','cell0608','cell0706','cell0707','cell0708','cell0806','cell0807','cell0808'];
 
+/**
+ * Ensure functionality for custom checkmark in editing mode.
+ */
 document.getElementById('WindokuCheck').addEventListener('click', function () {
     if(document.getElementById('WindokuCheck').className === 'checkmark') {
         document.getElementById('WindokuCheck').className = 'uncheckmark';
@@ -52,6 +55,11 @@ function removeWindoku() {
     }
 }
 
+/**
+ * Run box validation for Windoku boxes.
+ *
+ * @returns {boolean}
+ */
 function windokuValidation() {
     let hasError1 = checkBox(box1);
     let hasError2 = checkBox(box2);
