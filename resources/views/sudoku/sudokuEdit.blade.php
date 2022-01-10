@@ -10,6 +10,7 @@
     <script src="{{ asset('js/sudoku-submit-override.js') }}" defer></script>
     <script src="{{ asset('js/windoku-handling.js') }}" defer></script>
     <script src="{{ asset('js/knight-handling.js') }}" defer></script>
+    <script src="{{ asset('js/misc.js') }}" defer></script>
 @endsection
 
 @section('content')
@@ -76,9 +77,9 @@
                                 </div>
                             </li>
 
-                            <li class="list-group-item btn-group">
-                                <button class="btn btn-outline-dark" id="penBtn" aria-pressed="true" type="button"></button>
-                                <button class="btn btn-outline-primary" id="submitBtn" type="submit"></button>
+                            <li class="list-group-item">
+                                <button class="btn btn-outline-primary" id="submitBtn" type="submit"
+                                        data-bs-toggle="tooltip" data-bs-placement="right" title="{{ __('Submit edit') }}"></button>
                             </li>
                         </ul>
                     </div>
@@ -95,18 +96,21 @@
                                 @if($rule->name == 'Classic Sudoku')
                                     <tr>
                                         <td class="checkmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
-                                        <td>{{ $rule->name }}</td>
+                                        <td data-bs-toggle="tooltip" data-bs-placement="right" title="{{ __('Every row, column and box must contain the digits 1-9 exactly once.') }}">
+                                            {{ $rule->name }}</td>
                                     </tr>
                                 @else
                                     @if(in_array($rule->id, $gridRules))
                                         <tr id="Rule{{ $rule->id }}">
                                             <td class="checkmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
-                                            <td>{{ $rule->name }}</td>
+                                            <td data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $rule->description }}">
+                                                {{ $rule->name }}</td>
                                         </tr>
                                     @else
                                         <tr id="Rule{{ $rule->id }}">
                                             <td class="uncheckmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
-                                            <td>{{ $rule->name }}</td>
+                                            <td data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $rule->description }}">
+                                                {{ $rule->name }}</td>
                                         </tr>
                                     @endif
                                 @endif

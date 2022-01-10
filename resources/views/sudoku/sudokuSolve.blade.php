@@ -13,6 +13,7 @@
     <script src="{{ asset('js/solve-timer.js') }}" defer></script>
     <script src="{{ asset('js/windoku-handling.js') }}" defer></script>
     <script src="{{ asset('js/knight-handling.js') }}" defer></script>
+    <script src="{{ asset('js/misc.js') }}" defer></script>
 @endsection
 
 @section('content')
@@ -66,20 +67,20 @@
                         </li>
 
                         <li class="list-group-item btn-group">
-                            <button class="btn btn-outline-dark" id="penBtn" aria-pressed="true" type="button" onclick="modeSwitch('pen')"></button>
-                            <button class="btn btn-outline-info" id="pencilBtn" aria-pressed="false" type="button" onclick="modeSwitch('pencil')"></button>
+                            <button class="btn btn-outline-dark" id="penBtn" aria-pressed="true" type="button" onclick="modeSwitch('pen')" data-bs-toggle="tooltip" data-bs-placement="left" title="{{ __('Pen') }}"></button>
+                            <button class="btn btn-outline-info" id="pencilBtn" aria-pressed="false" type="button" onclick="modeSwitch('pencil')" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ __('Pencil') }}"></button>
                         </li>
 
                         <li class="list-group-item btn-group">
-                            <button class="btn btn-outline-primary" id="finishBtn" type="button" onclick="validatePostFinish()"></button>
-                            <button class="btn btn-outline-danger" id="restart" type="button" onclick="clearBoard()"></button>
+                            <button class="btn btn-outline-primary" id="finishBtn" type="button" onclick="validatePostFinish()" data-bs-toggle="tooltip" data-bs-placement="left" title="{{ __('Finish') }}"></button>
+                            <button class="btn btn-outline-danger" id="restart" type="button" onclick="clearBoard()" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ __('Restart') }}"></button>
                         </li>
 
                         @if(Auth::id() == $grid->user->id)
                             <li class="list-group-item btn-group">
-                                <a class="btn btn-outline-secondary edit" id="editBtn" type="button"
+                                <a class="btn btn-outline-secondary edit" id="editBtn" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="{{ __('Edit puzzle') }}"
                                 href="{{ action('App\Http\Controllers\SudokuController@edit', ['id' => $grid->id]) }}"></a>
-                                <a class="btn btn-outline-danger delete" id="deletePuzzle" type="button"
+                                <a class="btn btn-outline-danger delete" id="deletePuzzle" type="button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ __('Delete puzzle') }}"
                                 href="{{ action('App\Http\Controllers\SudokuController@destroy', ['id' => $grid->id]) }}"></a>
                             </li>
                         @endif
@@ -96,18 +97,21 @@
                             @if($rule->name == 'Classic Sudoku')
                                 <tr>
                                     <td class="checkmark"></td>
-                                    <td>{{ $rule->name }}</td>
+                                    <td data-bs-toggle="tooltip" data-bs-placement="right" title="{{ __('Every row, column and box must contain the digits 1-9 exactly once.') }}">
+                                        {{ $rule->name }}</td>
                                 </tr>
                             @else
                                 @if(in_array($rule->id, $gridRules))
                                     <tr id="Rule{{ $rule->id }}">
                                         <td class="checkmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
-                                        <td>{{ $rule->name }}</td>
+                                        <td data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $rule->description }}">
+                                            {{ $rule->name }}</td>
                                     </tr>
                                 @else
                                     <tr id="Rule{{ $rule->id }}">
                                         <td class="uncheckmark" id="{{ str_replace(' ', '', $rule->name) }}Check"></td>
-                                        <td>{{ $rule->name }}</td>
+                                        <td data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $rule->description }}">
+                                            {{ $rule->name }}</td>
                                     </tr>
                                 @endif
                             @endif

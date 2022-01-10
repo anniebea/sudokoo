@@ -6,3 +6,16 @@
 .btn-outline-info:hover {
     color: white;
 }
+
+/*-----------
+Tooltips
+-----------*/
+
+.tooltip.show {
+    opacity: 1;
+}
+
+.tooltip-inner {
+    background-color: #6cb2eb;
+    box-shadow: 0 0 2px black;
+}
