@@ -10,7 +10,6 @@
                           action="{{ route('password.change', ['id' => $user->id]) }}"
                     >
                         @csrf
-                        @method('PATCH')
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Current password') }}</label>

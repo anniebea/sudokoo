@@ -47,9 +47,9 @@ Route::group(['middleware' => 'not.blocked'], function() {
     Route::get('/sudokoo/list/user', 'App\Http\Controllers\UserController@index')->name('user.list')->middleware(['auth','admin']);
     Route::get('/sudokoo/user/{id}','App\Http\Controllers\UserController@show')->name('user.show')->middleware(['auth','auth.user']);
     Route::get('/sudokoo/edit/user/{id}','App\Http\Controllers\UserController@edit')->name('user.edit')->middleware(['auth','auth.user']);
-    Route::patch('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@update')->name('user.update')->middleware(['auth','auth.user']);
+    Route::post('sudokoo/edit/user/{id}', 'App\Http\Controllers\UserController@update')->name('user.update')->middleware(['auth','auth.user']);
     Route::get('/sudokoo/edit/userPass/{id}','App\Http\Controllers\UserController@editPassword')->name('password.edit')->middleware(['auth','auth.user']);
-    Route::patch('sudokoo/edit/userPass/{id}', 'App\Http\Controllers\UserController@updatePassword')->name('password.change')->middleware(['auth','auth.user']);
+    Route::post('sudokoo/edit/userPass/{id}', 'App\Http\Controllers\UserController@updatePassword')->name('password.change')->middleware(['auth','auth.user']);
     Route::get('/sudokoo/role/user/{id}','App\Http\Controllers\UserController@editRole')->name('role.edit')->middleware(['auth','admin']);
     Route::post('/sudokoo/role/user', 'App\Http\Controllers\UserController@updateRole')->name('role.update')->middleware(['auth','admin']);
 
